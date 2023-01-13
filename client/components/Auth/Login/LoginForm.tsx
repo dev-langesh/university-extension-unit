@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Alert, Snackbar } from "@mui/material";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Footer from "./Footer";
+import LoginInputField from "./LoginInputField";
 
 type errorType = {
   open: boolean;
@@ -77,28 +79,16 @@ export default function LoginForm() {
         <h1 className="text-center text-2xl font-bold pb-4 font-slab text-indigo-600">
           Login
         </h1>
-        {inputs.map((inp, i) => {
-          return (
-            <input
-              onChange={handleChange}
-              className="border px-2 py-1 text-[15px]"
-              {...inp}
-              key={i}
-            />
-          );
-        })}
+        <LoginInputField handleChange={handleChange} />
+
         <Link href="/forgot-password" className="text-sm text-slate-500">
           Forgot Password?
         </Link>
+
         <Button type="submit" text={loading ? "Loading..." : "Submit"} />
 
-        <p className="text-center text-slate-500 text-sm">
-          Don't have an account?
-          <br />
-          <Link className="text-blue-500" href="/auth/register">
-            Register
-          </Link>
-        </p>
+        <Footer />
+
         <Snackbar
           open={error.open}
           autoHideDuration={6000}

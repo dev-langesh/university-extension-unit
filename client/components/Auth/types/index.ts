@@ -6,7 +6,7 @@ export type inputType = {
 
 export type errorType = {
   open: boolean;
-  msg?: string;
+  msg?: any;
 };
 
 export type RegisterStateType = {
