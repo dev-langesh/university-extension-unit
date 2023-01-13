@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Footer from "./Footer";
 import LoginInputField from "./LoginInputField";
+import { userAgent } from "next/server";
 
 type errorType = {
   open: boolean;
@@ -66,7 +67,9 @@ export default function LoginForm() {
       });
     } else {
       window.localStorage.setItem("token", data.token);
-      router.push("/");
+
+      if (data.userType === "administerator") router.push("/admin");
+      else router.push("/user/dashboard");
     }
   };
 

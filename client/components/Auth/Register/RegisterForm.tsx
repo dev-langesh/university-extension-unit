@@ -58,7 +58,12 @@ export default function RegisterForm() {
         });
       } else {
         window.localStorage.setItem("token", data.token);
-        router.push("/");
+
+        if (state.userType === "administerator") {
+          router.push("/admin");
+        } else {
+          router.push("/user/dashboard");
+        }
       }
     } catch (err) {
       if (err) {

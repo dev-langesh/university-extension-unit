@@ -57,7 +57,11 @@ async function login(req, res) {
       process.env.JWT_SECRET
     );
 
-    return res.json({ message: "login success", token });
+    return res.json({
+      message: "login success",
+      token,
+      userType: body.userType,
+    });
   } catch (err) {
     if (err)
       return res.json({ error: "Invalid credentials", stack: err.stack });
