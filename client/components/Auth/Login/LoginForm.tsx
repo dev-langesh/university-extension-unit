@@ -29,8 +29,13 @@ export default function LoginForm() {
 
   const router = useRouter();
 
-  const closeError = () => setError({ open: false });
+  const closeError = () => {
+    setError((prev) => ({ ...prev, open: false }));
 
+    setTimeout(() => {
+      setError({ open: false, msg: "" });
+    }, 400);
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prev) => ({
       ...prev,
@@ -45,22 +50,22 @@ export default function LoginForm() {
       setError({ open: true, msg: "Fill All The Fields" });
     }
 
-    // setLoading(true);
+    setLoading(true);
 
-    // const req = await axios.post("http://localhost:8000/auth/login", state);
+    const req = await axios.post("http://localhost:8000/auth/login", state);
 
-    // const data = req.data;
+    const data = req.data;
 
-    // setLoading(false);
-    // if (data.error) {
-    //   setError({
-    //     open: true,
-    //     msg: data.error,
-    //   });
-    // } else {
-    //   window.localStorage.setItem("token", data.token);
-    //   router.push("/");
-    // }
+    setLoading(false);
+    if (data.error) {
+      setError({
+        open: true,
+        msg: data.error,
+      });
+    } else {
+      window.localStorage.setItem("token", data.token);
+      router.push("/");
+    }
   };
 
   return (

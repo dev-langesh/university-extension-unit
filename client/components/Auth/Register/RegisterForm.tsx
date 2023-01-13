@@ -25,7 +25,13 @@ export default function RegisterForm() {
 
   const router = useRouter();
 
-  const closeError = () => setError((prev) => ({ ...prev, open: false }));
+  const closeError = () => {
+    setError((prev) => ({ ...prev, open: false }));
+
+    setTimeout(() => {
+      setError({ open: false, msg: "" });
+    }, 400);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prev) => ({
@@ -41,22 +47,27 @@ export default function RegisterForm() {
 
     validateRegister({ state, setError });
 
-    // setLoading(true);
+    if (!error.msg) {
+      setLoading(true);
 
-    // const req = await axios.post("http://localhost:8000/auth/login", state);
+      const req = await axios.post(
+        "http://localhost:8000/auth/register",
+        state
+      );
 
-    // const data = req.data;
+      const data = req.data;
 
-    // setLoading(false);
-    // if (data.error) {
-    //   setError({
-    //     open: true,
-    //     msg: data.error,
-    //   });
-    // } else {
-    //   window.localStorage.setItem("token", data.token);
-    //   router.push("/");
-    // }
+      setLoading(false);
+      if (data.error) {
+        setError({
+          open: true,
+          msg: data.error,
+        });
+      } else {
+        window.localStorage.setItem("token", data.token);
+        router.push("/");
+      }
+    }
   };
 
   function setUserType(e: any) {

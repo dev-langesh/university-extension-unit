@@ -19,7 +19,7 @@ export function validateRegister({ state, setError }: validateType) {
     !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(state.email)
   ) {
     setError({ open: true, msg: "Invalid Email" });
-  } else if (state.password.length < 8) {
+  } else if (state.password.length < 6) {
     setError({ open: true, msg: "Password length is too low" });
   } else if (state.password !== state.confirmPassword) {
     console.log("e");
