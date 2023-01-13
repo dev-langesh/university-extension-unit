@@ -9,7 +9,7 @@ export default function Navbar() {
         <Link href="/">Unidad de extensión universitaria</Link>
       </h1>
 
-      <nav className="space-x-5">
+      <nav className="space-x-5 hidden sm:block">
         <LinkButton href="/auth/login" text="Acceso" variant="contained" />
         <LinkButton
           href="/auth/register"
