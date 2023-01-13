@@ -53,14 +53,14 @@ async function login(req, res) {
     }
 
     const token = jwt.sign(
-      { id: user._id, role: body.userType },
+      { id: user._id, role: user.userType },
       process.env.JWT_SECRET
     );
 
     return res.json({
       message: "login success",
       token,
-      userType: body.userType,
+      userType: user.userType,
     });
   } catch (err) {
     if (err)

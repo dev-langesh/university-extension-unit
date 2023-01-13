@@ -3,5 +3,7 @@ export function decodeToken(token: string) {
 
   const decoded = window.atob(base64);
 
+  console.log(decoded);
+
   return JSON.parse(decoded);
 }

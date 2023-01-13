@@ -19,9 +19,13 @@ export default function AuthProvider({
     if (token) {
       const user = decodeToken(token);
 
-      setUser(user);
+      console.log(user);
+
+      setUser(user.role);
     } else {
-      router.push("/auth/login");
+      if (router.pathname !== "/") {
+        router.push("/auth/login");
+      }
     }
   }, []);
 

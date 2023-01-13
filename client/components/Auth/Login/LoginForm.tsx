@@ -68,8 +68,8 @@ export default function LoginForm() {
     } else {
       window.localStorage.setItem("token", data.token);
 
-      if (data.userType === "administerator") router.push("/admin");
-      else router.push("/user/dashboard");
+      if (data.userType === "administrator") window.location.href = "/admin";
+      else window.location.href = "/user/dashboard";
     }
   };
 

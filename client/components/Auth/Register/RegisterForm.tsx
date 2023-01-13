@@ -60,9 +60,9 @@ export default function RegisterForm() {
         window.localStorage.setItem("token", data.token);
 
         if (state.userType === "administerator") {
-          router.push("/admin");
+          window.location.href = "/admin";
         } else {
-          router.push("/user/dashboard");
+          window.location.href = "/user/dashboard";
         }
       }
     } catch (err) {
