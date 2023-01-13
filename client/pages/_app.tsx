@@ -4,7 +4,7 @@ import Navbar from "../components/navbar/index";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className="font-roboto">
+    <div className="font-roboto overflow-y-auto">
       <Navbar />
       <Component {...pageProps} />
     </div>

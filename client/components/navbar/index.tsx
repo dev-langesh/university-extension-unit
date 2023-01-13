@@ -10,8 +10,12 @@ export default function Navbar() {
       </h1>
 
       <nav className="space-x-5">
-        <LinkButton href="/auth/login" text="Sign in" variant="contained" />
-        <LinkButton href="/auth/login" text="Sign up" variant="outlined" />
+        <LinkButton href="/auth/login" text="Acceso" variant="contained" />
+        <LinkButton
+          href="/auth/register"
+          text="Registrarse"
+          variant="outlined"
+        />
       </nav>
     </header>
   );
