@@ -5,23 +5,11 @@ import Link from "next/link";
 import { Alert, Radio, Snackbar } from "@mui/material";
 import { useRouter } from "next/router";
 import axios from "axios";
-
-type errorType = {
-  open: boolean;
-  msg?: string;
-};
-
-type stateType = {
-  username: string;
-  phone: number;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  userType: "student" | "administerator";
-};
+import { validateRegister } from "./validateRegister";
+import { errorType, RegisterStateType } from "../types";
 
 export default function RegisterForm() {
-  const [state, setState] = useState<stateType>({
+  const [state, setState] = useState<RegisterStateType>({
     username: "",
     phone: 0,
     email: "",
@@ -37,7 +25,7 @@ export default function RegisterForm() {
 
   const router = useRouter();
 
-  const closeError = () => setError({ open: false });
+  const closeError = () => setError((prev) => ({ ...prev, open: false }));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prev) => ({
@@ -49,22 +37,26 @@ export default function RegisterForm() {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    setLoading(true);
+    console.log(state);
 
-    const req = await axios.post("http://localhost:8000/auth/login", state);
+    validateRegister({ state, setError });
 
-    const data = req.data;
+    // setLoading(true);
 
-    setLoading(false);
-    if (data.error) {
-      setError({
-        open: true,
-        msg: data.error,
-      });
-    } else {
-      window.localStorage.setItem("token", data.token);
-      router.push("/");
-    }
+    // const req = await axios.post("http://localhost:8000/auth/login", state);
+
+    // const data = req.data;
+
+    // setLoading(false);
+    // if (data.error) {
+    //   setError({
+    //     open: true,
+    //     msg: data.error,
+    //   });
+    // } else {
+    //   window.localStorage.setItem("token", data.token);
+    //   router.push("/");
+    // }
   };
 
   function setUserType(e: any) {
@@ -130,9 +122,9 @@ export default function RegisterForm() {
           </Link>
         </p>
         <Snackbar
+          onClose={closeError}
           open={error.open}
           autoHideDuration={6000}
-          onClose={closeError}
         >
           <Alert onClose={closeError} severity="error">
             {error.msg}

@@ -1,4 +1,4 @@
-import { inputType } from "../types/InputType";
+import { inputType } from "../types/index";
 
 export const inputs: inputType[] = [
   {

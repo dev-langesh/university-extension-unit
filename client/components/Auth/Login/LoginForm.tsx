@@ -11,8 +11,16 @@ type errorType = {
   msg?: string;
 };
 
+type stateType = {
+  email: string;
+  password: string;
+};
+
 export default function LoginForm() {
-  const [state, setState] = useState({});
+  const [state, setState] = useState<stateType>({
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState<errorType>({
     open: false,
     msg: "",
@@ -33,22 +41,26 @@ export default function LoginForm() {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    setLoading(true);
-
-    const req = await axios.post("http://localhost:8000/auth/login", state);
-
-    const data = req.data;
-
-    setLoading(false);
-    if (data.error) {
-      setError({
-        open: true,
-        msg: data.error,
-      });
-    } else {
-      window.localStorage.setItem("token", data.token);
-      router.push("/");
+    if (!state.email || !state.password) {
+      setError({ open: true, msg: "Fill All The Fields" });
     }
+
+    // setLoading(true);
+
+    // const req = await axios.post("http://localhost:8000/auth/login", state);
+
+    // const data = req.data;
+
+    // setLoading(false);
+    // if (data.error) {
+    //   setError({
+    //     open: true,
+    //     msg: data.error,
+    //   });
+    // } else {
+    //   window.localStorage.setItem("token", data.token);
+    //   router.push("/");
+    // }
   };
 
   return (

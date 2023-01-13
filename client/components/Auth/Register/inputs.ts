@@ -1,4 +1,4 @@
-import { inputType } from "../types/InputType";
+import { inputType } from "../types/index";
 
 export const inputs: inputType[] = [
   {
@@ -17,5 +17,10 @@ export const inputs: inputType[] = [
     name: "password",
     type: "password",
     placeholder: "Password",
+  },
+  {
+    name: "confirmPassword",
+    type: "password",
+    placeholder: "Confirm Password",
   },
 ];
