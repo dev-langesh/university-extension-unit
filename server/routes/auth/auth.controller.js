@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const { User } = require("../../models/user.model");
 const jwt = require("jsonwebtoken");
+const { sendMail } = require("../../lib/sendMail");
 
 // POST /auth/register
 async function register(req, res) {
@@ -89,6 +90,12 @@ async function sendCode(req, res) {
     if (!user) {
       throw new Error("Invalid email");
     }
+
+    await sendMail({
+      to: email,
+      subject: "Password reset OTP",
+      text: `Your confirmation code is ${code}`,
+    });
 
     return res.json({ message: "Code sent successfully" });
   } catch (err) {
