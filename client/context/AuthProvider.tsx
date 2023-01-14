@@ -21,7 +21,7 @@ export default function AuthProvider({
 
       setUser(user.role);
     } else {
-      if (router.pathname !== "/") {
+      if (router.pathname !== "/" && router.pathname !== "/auth/verify-email") {
         router.push("/auth/login");
       }
     }

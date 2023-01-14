@@ -26,12 +26,7 @@ async function register(req, res) {
 
     const user = await User.create(body);
 
-    const token = jwt.sign(
-      { id: user._id, role: body.userType },
-      process.env.JWT_SECRET
-    );
-
-    return res.json({ message: "User registered", token });
+    return res.json({ message: "User registered" });
   } catch (err) {
     if (err)
       return res.json({ error: "Invalid credentials", stack: err.stack });
@@ -75,6 +70,7 @@ async function login(req, res) {
   res.send("login");
 }
 
+// PUT /auth/send-code
 async function sendCode(req, res) {
   try {
     const email = req.body.email;
@@ -99,10 +95,11 @@ async function sendCode(req, res) {
 
     return res.json({ message: "Code sent successfully" });
   } catch (err) {
-    return res.status(400).json({ error: err.message, stack: err.stack });
+    return res.json({ error: err.message, stack: err.stack });
   }
 }
 
+// PUT /auth/change-password
 async function changePassword(req, res) {
   try {
     const code = req.body.code;
@@ -131,8 +128,45 @@ async function changePassword(req, res) {
 
     return res.json({ message: "Password changed" });
   } catch (err) {
-    return res.status(400).json({ error: err.message, stack: err.stack });
+    return res.json({ error: err.message, stack: err.stack });
   }
 }
 
-module.exports = { register, login, changePassword, sendCode };
+// PUT /auth/verify-code
+async function verifyCode(req, res) {
+  try {
+    const code = req.body.code;
+    const email = req.body.email;
+
+    if (!code || !email) {
+      throw new Error("Fill all the fields");
+    }
+
+    const user = await User.findOne({ email });
+
+    console.log(user);
+
+    if (!user) {
+      throw new Error("Invalid email");
+    }
+
+    if (user.code != code) {
+      throw new Error("Invalid code");
+    }
+
+    const token = jwt.sign(
+      { id: user._id, role: user.userType },
+      process.env.JWT_SECRET
+    );
+
+    return res.json({
+      message: "Code Verified",
+      token,
+      userType: user.userType,
+    });
+  } catch (err) {
+    return res.json({ error: err.message, stack: err.stack });
+  }
+}
+
+module.exports = { register, login, changePassword, sendCode, verifyCode };

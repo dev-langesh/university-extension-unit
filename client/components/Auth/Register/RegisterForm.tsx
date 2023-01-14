@@ -59,15 +59,9 @@ export default function RegisterForm() {
           msg: data.error,
         });
       } else {
-        window.localStorage.setItem("token", data.token);
-
         setState(initialRegisterState);
 
-        if (state.userType === "administrator") {
-          window.location.href = "/admin";
-        } else {
-          window.location.href = "/user/dashboard";
-        }
+        router.push("/auth/verify-email");
       }
     } catch (err) {
       if (err) {
