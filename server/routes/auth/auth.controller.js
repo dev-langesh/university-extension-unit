@@ -19,6 +19,10 @@ async function register(req, res) {
 
     body.password = hashedPass;
 
+    const code = Math.floor(Math.random() * 10000);
+
+    body.code = code;
+
     const user = await User.create(body);
 
     const token = jwt.sign(
@@ -70,4 +74,28 @@ async function login(req, res) {
   res.send("login");
 }
 
-module.exports = { register, login };
+async function sendCode(req, res) {
+  try {
+    const email = req.body.email;
+
+    if (!email) {
+      throw new Error("Email is required");
+    }
+
+    const code = Math.floor(Math.random() * 10000);
+
+    const user = await User.findOneAndUpdate({ email }, { $set: { code } });
+
+    if (!user) {
+      throw new Error("Invalid email");
+    }
+
+    return res.json({ message: "Code sent successfully" });
+  } catch (err) {
+    return res.status(400).json({ error: err.message, stack: err.stack });
+  }
+}
+
+async function changePassword(req, res) {}
+
+module.exports = { register, login, changePassword, sendCode };
