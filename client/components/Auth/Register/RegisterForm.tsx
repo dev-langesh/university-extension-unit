@@ -9,6 +9,7 @@ import { errorType, RegisterStateType } from "../types";
 import RadioGroup from "./RadioGroup";
 import FormFields from "./FormFields";
 import Footer from "./Footer";
+import Link from "next/link";
 
 export default function RegisterForm() {
   const [state, setState] = useState<RegisterStateType>(initialRegisterState);
@@ -93,6 +94,13 @@ export default function RegisterForm() {
         <RadioGroup state={state} setUserType={setUserType} />
 
         <FormFields handleChange={handleChange} />
+
+        <Link
+          className="text-slate-500 text-sm hover:underline"
+          href="/auth/reset-password"
+        >
+          Forgot Password?
+        </Link>
 
         <Button type="submit" text={loading ? "Loading..." : "Submit"} />
 

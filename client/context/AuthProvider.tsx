@@ -21,7 +21,8 @@ export default function AuthProvider({
 
       setUser(user.role);
     } else {
-      if (router.pathname !== "/" && router.pathname !== "/auth/verify-email") {
+      const whitelist = ["/", "/auth/verify-email", "/auth/reset-password"];
+      if (!whitelist.includes(router.pathname)) {
         router.push("/auth/login");
       }
     }

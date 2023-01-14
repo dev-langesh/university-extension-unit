@@ -126,7 +126,16 @@ async function changePassword(req, res) {
 
     await User.findOneAndUpdate({ email }, { $set: { password: hashedPass } });
 
-    return res.json({ message: "Password changed" });
+    const token = jwt.sign(
+      { id: user._id, role: user.userType },
+      process.env.JWT_SECRET
+    );
+
+    return res.json({
+      message: "Password changed",
+      token,
+      userType: user.userType,
+    });
   } catch (err) {
     return res.json({ error: err.message, stack: err.stack });
   }

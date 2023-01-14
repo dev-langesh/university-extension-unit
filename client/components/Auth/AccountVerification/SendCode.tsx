@@ -40,7 +40,7 @@ export default function SendCode({ openVerifyStep }: { openVerifyStep: any }) {
       });
     } else {
       window.localStorage.setItem("email", state.email);
-      openVerifyStep(true);
+      openVerifyStep();
     }
   }
 
