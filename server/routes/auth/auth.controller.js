@@ -96,6 +96,36 @@ async function sendCode(req, res) {
   }
 }
 
-async function changePassword(req, res) {}
+async function changePassword(req, res) {
+  try {
+    const code = req.body.code;
+    const password = req.body.password;
+    const email = req.body.email;
+
+    if (!code || !password || !email) {
+      throw new Error("Fill all the fields");
+    }
+
+    const user = await User.findOne({ email });
+
+    console.log(user);
+
+    if (!user) {
+      throw new Error("Invalid email");
+    }
+
+    if (user.code != code) {
+      throw new Error("Invalid code");
+    }
+
+    const hashedPass = await bcrypt.hash(password, 16);
+
+    await User.findOneAndUpdate({ email }, { $set: { password: hashedPass } });
+
+    return res.json({ message: "Password changed" });
+  } catch (err) {
+    return res.status(400).json({ error: err.message, stack: err.stack });
+  }
+}
 
 module.exports = { register, login, changePassword, sendCode };
