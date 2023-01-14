@@ -9,7 +9,10 @@ import {
   closeProfile,
 } from "../../src/features/profile/profileSlice";
 import Profile from "./Profile";
-import { openCCF } from "../../src/features/admin/courseCreationSlice";
+import {
+  closeCCF,
+  openCCF,
+} from "../../src/features/admin/courseCreationSlice";
 
 export default function AdminNav() {
   const profile = useAppSelector(getProfile);
@@ -29,7 +32,7 @@ export default function AdminNav() {
 
   return (
     <section>
-      <IconButton sx={{ color: "white" }}>
+      <IconButton onClick={() => dispatch(closeCCF())} sx={{ color: "white" }}>
         <ViewQuiltIcon />
       </IconButton>
       <IconButton onClick={openCourseCreation} sx={{ color: "white" }}>
