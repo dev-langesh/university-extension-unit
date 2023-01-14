@@ -15,7 +15,13 @@ export default function Navbar() {
       </h1>
       <nav className="space-x-5 hidden sm:block">
         {!user && <NavWithoutAuth />}
-        {user === "administerator" ? <AdminNav /> : <UserNav />}
+        {user === "administrator" ? (
+          <AdminNav />
+        ) : user === "student" ? (
+          <UserNav />
+        ) : (
+          ""
+        )}
       </nav>
     </header>
   );

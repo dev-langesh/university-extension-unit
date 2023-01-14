@@ -23,9 +23,9 @@ export default function RadioGroup({ state, setUserType }: RadioGroupType) {
       </div>
       <div className="flex items-center">
         <Radio
-          checked={state?.userType === "administerator"}
+          checked={state?.userType === "administrator"}
           onChange={setUserType}
-          value="administerator"
+          value="administrator"
           name="radio-buttons"
           inputProps={{ "aria-label": "Administerator" }}
           size="small"

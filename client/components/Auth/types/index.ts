@@ -15,5 +15,5 @@ export type RegisterStateType = {
   email: string;
   password: string;
   confirmPassword: string;
-  userType: "student" | "administerator";
+  userType: "student" | "administrator";
 };

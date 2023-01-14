@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Button from "../../common/buttons/Button";
 import { inputs } from "./inputs";
 import Link from "next/link";
@@ -28,6 +28,7 @@ export default function LoginForm() {
     open: false,
     msg: "",
   });
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();
@@ -60,6 +61,12 @@ export default function LoginForm() {
     const data = req.data;
 
     setLoading(false);
+
+    setState({
+      email: "",
+      password: "",
+    });
+
     if (data.error) {
       setError({
         open: true,

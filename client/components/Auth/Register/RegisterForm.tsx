@@ -39,6 +39,8 @@ export default function RegisterForm() {
     e.preventDefault();
 
     try {
+      console.log(state);
+
       await validateRegister({ state });
 
       setLoading(true);
@@ -59,7 +61,9 @@ export default function RegisterForm() {
       } else {
         window.localStorage.setItem("token", data.token);
 
-        if (state.userType === "administerator") {
+        setState(initialRegisterState);
+
+        if (state.userType === "administrator") {
           window.location.href = "/admin";
         } else {
           window.location.href = "/user/dashboard";

@@ -2,6 +2,7 @@ const express = require("express");
 const { AuthRouter } = require("./routes/auth/auth.route");
 const { connectDb } = require("./utils/connectDb");
 const cors = require("cors");
+const { userRouter } = require("./routes/user/user.route");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/auth", AuthRouter);
+app.use("/user", userRouter);
 
 app.get("/", (req, res) => {
   res.send("server is running");

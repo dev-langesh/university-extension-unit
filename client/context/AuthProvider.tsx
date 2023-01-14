@@ -19,8 +19,6 @@ export default function AuthProvider({
     if (token) {
       const user = decodeToken(token);
 
-      console.log(user);
-
       setUser(user.role);
     } else {
       if (router.pathname !== "/") {
