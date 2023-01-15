@@ -22,7 +22,7 @@ export default function CourseHeader({ setPage }: { setPage: any }) {
     <header className="w-full p-3 flex items-center justify-center space-x-6">
       {type === "admin" ||
         (type === "administrator" && (
-          <ButtonWithLink setPage={setPage} text="Create Course" />
+          <ButtonWithLink setPage={setPage} text="Create Activity" />
         ))}
       <Button setPage={setPage} text="Activities" />
       <Button setPage={setPage} text="Participants" />
