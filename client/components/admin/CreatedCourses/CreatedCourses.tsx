@@ -10,11 +10,13 @@ export default function CreatedCourses() {
       <section className="flex flex-wrap flex-col md:flex-row items-center justify-center">
         <CourseCard
           title="Javascript"
+          id="1"
           sub_title="Let's master JS with me."
           img="https://www.tutorialrepublic.com/lib/images/javascript-illustration.png"
         />
         <CourseCard
           title="React"
+          id="2"
           sub_title="React is a wonderfull to learn. Are you ready to learn"
           img="https://dwglogo.com/wp-content/uploads/2017/09/React_logo_vector.svg"
         />

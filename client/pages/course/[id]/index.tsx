@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import Activities from "../../../components/course/activity";
 import CourseHeader from "../../../components/course/CourseHeader";
