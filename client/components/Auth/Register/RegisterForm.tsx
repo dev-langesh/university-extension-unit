@@ -95,13 +95,6 @@ export default function RegisterForm() {
 
         <FormFields handleChange={handleChange} />
 
-        <Link
-          className="text-slate-500 text-sm hover:underline"
-          href="/auth/reset-password"
-        >
-          Forgot Password?
-        </Link>
-
         <Button type="submit" text={loading ? "Loading..." : "Submit"} />
 
         <Footer />

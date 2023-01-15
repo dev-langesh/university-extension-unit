@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <AuthProvider>
-        <div className="font-roboto overflow-y-auto">
+        <div className="font-roboto overflow-x-hidden overflow-y-auto">
           <Navbar />
           <Component {...pageProps} />
         </div>

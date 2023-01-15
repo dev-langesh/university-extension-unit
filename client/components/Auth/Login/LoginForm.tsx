@@ -1,13 +1,11 @@
 import React, { useRef, useState } from "react";
 import Button from "../../common/buttons/Button";
-import { inputs } from "./inputs";
 import Link from "next/link";
 import { Alert, Snackbar } from "@mui/material";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Footer from "./Footer";
 import LoginInputField from "./LoginInputField";
-import { userAgent } from "next/server";
 
 type errorType = {
   open: boolean;
@@ -91,7 +89,10 @@ export default function LoginForm() {
         </h1>
         <LoginInputField handleChange={handleChange} />
 
-        <Link href="/forgot-password" className="text-sm text-slate-500">
+        <Link
+          className="text-slate-500 text-sm hover:underline"
+          href="/auth/reset-password"
+        >
           Forgot Password?
         </Link>
 
