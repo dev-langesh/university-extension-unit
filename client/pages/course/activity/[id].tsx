@@ -9,7 +9,7 @@ export default function Activity() {
 
   return (
     <div className="grid grid-cols-12 grid-rows-6 ">
-      {type !== "student" ? (
+      {type === "student" ? (
         <>
           <UploadWork />
         </>
