@@ -1,5 +1,4 @@
 import React from "react";
-import ActivityHeader from "../CourseHeader";
 import ActivityCard from "./ActivityCard";
 
 export default function Activities() {

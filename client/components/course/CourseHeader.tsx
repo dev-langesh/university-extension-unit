@@ -2,21 +2,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { decodeToken } from "../../components/hooks/decodeToken";
+import { useUserRole } from "../hooks/useUserRole";
 
 export default function CourseHeader({ setPage }: { setPage: any }) {
-  const [type, setType] = useState<"admin" | "administrator" | "student">(
-    "student"
-  );
-
-  useEffect(() => {
-    const token = window.localStorage.getItem("token");
-
-    if (token) {
-      const user = decodeToken(token);
-
-      setType(user.role);
-    }
-  }, []);
+  const [type, setType] = useUserRole();
 
   return (
     <header className="w-full p-3 flex items-center justify-center space-x-6">
