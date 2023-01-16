@@ -67,6 +67,8 @@ async function registerInCourse(req, res) {
       throw new Error("Course Not Found");
     }
 
+    const course_id = course._id;
+
     const student = await User.findById(student_id);
 
     if (!student) {
@@ -88,7 +90,7 @@ async function registerInCourse(req, res) {
 
     res.json({ message: "Registration success" });
   } catch (err) {
-    if (err) res.status(400).json({ error: err.message });
+    if (err) res.json({ error: err.message });
   }
 }
 

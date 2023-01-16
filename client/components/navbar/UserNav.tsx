@@ -9,12 +9,14 @@ import {
   openProfile,
   setProfile,
 } from "../../src/features/profile/profileSlice";
-import { useEffect } from "react";
-import axios from "axios";
+import AddIcon from "@mui/icons-material/Add";
+import JoinClassroom from "./JoinCourse";
+import { useState } from "react";
 
 export default function UserNav() {
   const profile = useAppSelector(getProfile);
   const dispatch = useAppDispatch();
+  const [join, setJoin] = useState<boolean>(false);
 
   function clickHandler() {
     if (profile.openProfile) {
@@ -25,16 +27,18 @@ export default function UserNav() {
   }
 
   return (
-    <>
+    <div className="">
       <IconButton sx={{ color: "white" }}>
         <ViewQuiltIcon />
       </IconButton>
-
+      <IconButton onClick={() => setJoin((p) => !p)} sx={{ color: "white" }}>
+        <AddIcon />
+      </IconButton>
       <IconButton onClick={clickHandler} sx={{ color: "white" }}>
         <AccountCircleIcon />
       </IconButton>
-
       <Profile />
-    </>
+      {join && <JoinClassroom />}
+    </div>
   );
 }

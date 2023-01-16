@@ -17,13 +17,14 @@ export default function Navbar() {
       </h1>
       <nav className="space-x-5 hidden sm:block">
         {!user && <NavWithoutAuth />}
-        {user === "admin" || user === "administrator" ? (
+        {/* {user === "admin" || user === "administrator" ? (
           <AdminNav />
         ) : user === "student" ? (
           <UserNav />
         ) : (
           ""
-        )}
+        )} */}
+        <UserNav />
       </nav>
     </header>
   );
