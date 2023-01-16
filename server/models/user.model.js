@@ -8,6 +8,12 @@ const userSchema = mongoose.Schema(
     password: { type: String, required: true },
     userType: { type: String, required: true },
     code: Number,
+    courses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "course",
+      },
+    ],
   },
   {
     collection: "User",

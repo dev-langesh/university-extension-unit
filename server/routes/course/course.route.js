@@ -6,12 +6,14 @@ const {
   createCourse,
   getCourses,
   deleteCourse,
+  registerInCourse,
 } = require("./course.controller");
 
 const router = require("express").Router();
 
 router.get("/", decodeToken, getCourses);
 router.post("/", decodeToken, uploadCourseImage.single("image"), createCourse);
+router.post("/register", decodeToken, registerInCourse);
 router.delete("/:id", decodeToken, deleteCourse);
 
 module.exports = { CourseRouter: router };

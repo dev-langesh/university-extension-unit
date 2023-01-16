@@ -8,10 +8,15 @@ const schema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
     },
-    students: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
-    },
+    students: [
+      {
+        student_id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "user",
+        },
+        email: String,
+      },
+    ],
     img: String,
     code: Number,
   },

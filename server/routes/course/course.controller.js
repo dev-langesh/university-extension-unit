@@ -1,5 +1,6 @@
 const multer = require("multer");
 const { Course } = require("../../models/course.model");
+const { User } = require("../../models/user.model");
 
 // GET /course
 async function getCourses(req, res) {
@@ -52,4 +53,47 @@ async function deleteCourse(req, res) {
   }
 }
 
-module.exports = { createCourse, getCourses, deleteCourse };
+// POST /course/register
+async function registerInCourse(req, res) {
+  try {
+    const student_id = req.id;
+    const { course_id, course_code } = req.body;
+    console.log(req.body);
+
+    const course = await Course.findById(course_id);
+    console.log(course);
+
+    if (!course) {
+      throw new Error("Course Not Found");
+    }
+
+    const student = await User.findById(student_id);
+
+    if (!student) {
+      throw new Error("Student not found");
+    }
+
+    course.students.forEach((std) => {
+      if (std.email === student.email) {
+        throw new Error("Already Registered");
+      }
+    });
+
+    if (Number(course_code) !== course.code) {
+      throw new Error("Invalid course code");
+    }
+
+    await User.findByIdAndUpdate(student_id, {
+      $push: { courses: [course_id] },
+    });
+    await Course.findByIdAndUpdate(course_id, {
+      $push: { students: [{ student_id: student._id, email: student.email }] },
+    });
+
+    res.json({ message: "Registration success" });
+  } catch (err) {
+    if (err) res.status(400).json({ error: err.message });
+  }
+}
+
+module.exports = { createCourse, getCourses, deleteCourse, registerInCourse };

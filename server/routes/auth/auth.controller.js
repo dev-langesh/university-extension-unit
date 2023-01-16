@@ -26,7 +26,12 @@ async function register(req, res) {
 
     const user = await User.create(body);
 
-    return res.json({ message: "User registered" });
+    const token = jwt.sign(
+      { id: user._id, role: user.userType },
+      process.env.JWT_SECRET
+    );
+
+    return res.json({ message: "User registered", token });
   } catch (err) {
     if (err)
       return res.json({ error: "Invalid credentials", stack: err.stack });
