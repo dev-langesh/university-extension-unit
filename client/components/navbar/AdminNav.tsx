@@ -13,10 +13,13 @@ import {
   closeCCF,
   openCCF,
 } from "../../src/features/admin/courseCreationSlice";
+import { useRouter } from "next/router";
 
 export default function AdminNav() {
   const profile = useAppSelector(getProfile);
   const dispatch = useAppDispatch();
+
+  const router = useRouter();
 
   function accountClickHandler() {
     if (profile.openProfile) {
@@ -32,7 +35,13 @@ export default function AdminNav() {
 
   return (
     <section>
-      <IconButton onClick={() => dispatch(closeCCF())} sx={{ color: "white" }}>
+      <IconButton
+        onClick={() => {
+          dispatch(closeCCF());
+          router.push("/admin");
+        }}
+        sx={{ color: "white" }}
+      >
         <ViewQuiltIcon />
       </IconButton>
       <IconButton onClick={openCourseCreation} sx={{ color: "white" }}>

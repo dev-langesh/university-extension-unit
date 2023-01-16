@@ -15,7 +15,7 @@ export default function Navbar() {
       </h1>
       <nav className="space-x-5 hidden sm:block">
         {!user && <NavWithoutAuth />}
-        {user === "administrator" ? (
+        {user === "admin" ? (
           <AdminNav />
         ) : user === "student" ? (
           <UserNav />

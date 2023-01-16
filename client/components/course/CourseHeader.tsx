@@ -5,14 +5,11 @@ import { decodeToken } from "../../components/hooks/decodeToken";
 import { useUserRole } from "../hooks/useUserRole";
 
 export default function CourseHeader({ setPage }: { setPage: any }) {
-  const [type, setType] = useUserRole();
+  const role = useUserRole();
 
   return (
     <header className="w-full p-3 flex items-center justify-center space-x-6">
-      {type === "admin" ||
-        (type === "administrator" && (
-          <ButtonWithLink setPage={setPage} text="Create Activity" />
-        ))}
+      {role === "admin" && <ButtonWithLink text="Create Activity" />}
       <Button setPage={setPage} text="Activities" />
       <Button setPage={setPage} text="Participants" />
     </header>
@@ -33,11 +30,7 @@ function Button({ text, setPage }: { text: string; setPage: any }) {
   );
 }
 
-function ButtonWithLink({ text, setPage }: { text: string; setPage: any }) {
-  function clickHandler() {
-    setPage(text.toLocaleLowerCase());
-  }
-
+function ButtonWithLink({ text }: { text: string }) {
   const router = useRouter();
 
   const [id, setId] = useState<string | string[]>("");
@@ -51,7 +44,6 @@ function ButtonWithLink({ text, setPage }: { text: string; setPage: any }) {
   return (
     <Link
       href={`/course/${id}/create-activity`}
-      onClick={clickHandler}
       className="text-slate-600 cursor-pointer border-b-2 border-white hover:border-indigo-600"
     >
       {text}

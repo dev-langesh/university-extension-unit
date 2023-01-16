@@ -73,7 +73,7 @@ export default function LoginForm() {
     } else {
       window.localStorage.setItem("token", data.token);
 
-      if (data.userType === "administrator") window.location.href = "/admin";
+      if (data.userType !== "student") window.location.href = "/admin";
       else window.location.href = "/user/dashboard";
     }
   };

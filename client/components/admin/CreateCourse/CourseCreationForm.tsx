@@ -18,7 +18,23 @@ export default function CourseCreationForm() {
     if (fromRef.current) {
       const formData = new FormData(fromRef?.current);
 
-      //   const req = await axios.post("http://localhsot:8000/");
+      const token = window.localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const req = await axios.post(
+        "http://localhost:8000/course",
+        formData,
+        config
+      );
+
+      const data = req.data;
+
+      console.log(data);
     }
   }
 

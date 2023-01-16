@@ -16,5 +16,5 @@ export function useUserRole() {
     }
   }, []);
 
-  return [role, setRole];
+  return role;
 }

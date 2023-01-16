@@ -1,24 +1,22 @@
 const jwt = require("jsonwebtoken");
 
 function decodeToken(req, res, next) {
-  console.log(req.body);
+  try {
+    const bearerToken = req.headers["authorization"];
 
-  const token = req.body.token;
+    const token = bearerToken.split(" ")[1];
 
-  console.log(token);
+    if (!token) {
+      return res.status(400).json({ error: "Token is missing" });
+    }
 
-  if (!token) {
-    return res.status(400).json({ error: "Token is missing" });
-  }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-  if (!decoded) {
+    req.id = decoded.id;
+    req.userType = decoded.role;
+  } catch (err) {
     return res.status(400).json({ error: "Invalid token" });
   }
-
-  req.user = decoded.id;
-  req.userType = decoded.role;
 
   next();
 }
