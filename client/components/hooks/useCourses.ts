@@ -8,6 +8,10 @@ export default function useCourses() {
     async function getData() {
       const token = window.localStorage.getItem("token");
 
+      if (!token) {
+        return [];
+      }
+
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,

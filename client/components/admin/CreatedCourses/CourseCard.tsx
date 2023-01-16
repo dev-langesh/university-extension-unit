@@ -40,11 +40,15 @@ export default function CourseCard({ title, sub_title, img, id }: propType) {
           <img className="object-contain w-full h-full" src={img} alt="" />
         </div>
         <main className="p-3 space-y-2">
-          <h1 className="font-slab  font-bold">{title}</h1>
+          <h1 className="font-slab text-indigo-600  font-bold">{title}</h1>
           <h3 className="text-sm text-slate-600">{sub_title}</h3>
         </main>
       </Link>
-      <IconButton onClick={deleteCourse} className="float-right ">
+      <IconButton
+        onClick={deleteCourse}
+        sx={{ color: "blue" }}
+        className="float-right text-indigo-600"
+      >
         <DeleteIcon />
       </IconButton>
     </div>
