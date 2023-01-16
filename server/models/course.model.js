@@ -13,6 +13,7 @@ const schema = mongoose.Schema(
       ref: "user",
     },
     img: String,
+    code: Number,
   },
   { collection: "courses" }
 );
