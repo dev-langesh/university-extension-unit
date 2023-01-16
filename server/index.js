@@ -4,6 +4,7 @@ const { connectDb } = require("./utils/connectDb");
 const cors = require("cors");
 const { userRouter } = require("./routes/user/user.route");
 const { CourseRouter } = require("./routes/course/course.route");
+const path = require("path");
 
 const app = express();
 
@@ -15,7 +16,10 @@ connectDb();
 app.use(cors());
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+
+// serving images
+app.use(express.static("public"));
 
 app.use("/auth", AuthRouter);
 app.use("/user", userRouter);

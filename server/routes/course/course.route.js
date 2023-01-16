@@ -6,6 +6,6 @@ const { createCourse, getCourses } = require("./course.controller");
 
 const router = require("express").Router();
 
-router.post("/", decodeToken, uploadCourseImage.single("image"), createCourse);
+router.post("/", uploadCourseImage.single("image"), createCourse);
 
 module.exports = { CourseRouter: router };

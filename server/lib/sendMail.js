@@ -3,9 +3,6 @@ const path = require("path");
 
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
-console.log(process.env.EMAIL);
-console.log(process.env.PASSWORD);
-
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {

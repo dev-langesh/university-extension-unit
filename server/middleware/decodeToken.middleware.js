@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 
 function decodeToken(req, res, next) {
+  console.log(req.body);
+
   const token = req.body.token;
 
   console.log(token);
