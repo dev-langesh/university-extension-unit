@@ -19,6 +19,7 @@ export default function CreatedCourses() {
               id={course._id}
               sub_title={course.sub_title}
               img={course.img}
+              code={course.code}
             />
           );
         })}
