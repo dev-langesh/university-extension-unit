@@ -57,10 +57,10 @@ async function deleteCourse(req, res) {
 async function registerInCourse(req, res) {
   try {
     const student_id = req.id;
-    const { course_id, course_code } = req.body;
+    const { course_code } = req.body;
     console.log(req.body);
 
-    const course = await Course.findById(course_id);
+    const course = await Course.findOne({ code: course_code });
     console.log(course);
 
     if (!course) {
@@ -79,10 +79,6 @@ async function registerInCourse(req, res) {
       }
     });
 
-    if (Number(course_code) !== course.code) {
-      throw new Error("Invalid course code");
-    }
-
     await User.findByIdAndUpdate(student_id, {
       $push: { courses: [course_id] },
     });
@@ -96,4 +92,25 @@ async function registerInCourse(req, res) {
   }
 }
 
-module.exports = { createCourse, getCourses, deleteCourse, registerInCourse };
+// GET /course/get-registered
+async function getRegisteredCourses(req, res) {
+  try {
+    const user = await User.findById(req.id);
+
+    const regCourses = user.courses;
+
+    const courses = await Course.find({ _id: { $in: regCourses } });
+
+    res.json(courses);
+  } catch (err) {
+    if (err) res.status(400).json({ error: err.message });
+  }
+}
+
+module.exports = {
+  createCourse,
+  getCourses,
+  deleteCourse,
+  registerInCourse,
+  getRegisteredCourses,
+};
