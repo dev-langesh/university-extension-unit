@@ -38,6 +38,7 @@ export default function LoginForm() {
       setError({ open: false, msg: "" });
     }, 400);
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prev) => ({
       ...prev,

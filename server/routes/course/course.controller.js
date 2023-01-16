@@ -23,7 +23,9 @@ async function createCourse(req, res) {
 }
 
 async function getCourses(req, res) {
-  const courses = await Course.find({});
+  const courses = await Course.find({ admin: req.id });
+
+  res.json(courses);
 }
 
 module.exports = { createCourse, getCourses };
