@@ -1,6 +1,7 @@
 import { Alert, Snackbar } from "@mui/material";
+import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { errorType } from "../../../components/Auth/types";
 import Button from "../../../components/common/buttons/Button";
 
@@ -9,9 +10,20 @@ export default function CreateActivityPage() {
     open: false,
     msg: "",
   });
+  const [formData, setFormData] = useState<any>({});
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const course_id = router.query.id;
+
+    setFormData((prev: any) => ({
+      ...prev,
+      course_id,
+    }));
+  }, []);
 
   const closeError = () => {
     setError((prev) => ({ ...prev, open: false }));
@@ -21,8 +33,39 @@ export default function CreateActivityPage() {
     }, 400);
   };
 
-  function handleSubmit(e: React.SyntheticEvent) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setFormData((p: any) => {
+      return {
+        ...p,
+        [e.target.name]: e.target.value,
+      };
+    });
+  }
+
+  async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+
+    const token = window.localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const req = await axios.post(
+      "http://localhost:8000/activity",
+      formData,
+      config
+    );
+
+    const data = req.data;
+
+    if (!data.error) {
+      history.back();
+    }
+
+    console.log(data);
   }
 
   return (
@@ -38,6 +81,7 @@ export default function CreateActivityPage() {
         <input
           type="text"
           name="title"
+          onChange={handleChange}
           placeholder="Title"
           className="border px-2 py-1 text-[15px] outline-none"
         />
@@ -50,17 +94,19 @@ export default function CreateActivityPage() {
           <input
             id="date"
             type="date"
+            name="due_date"
+            onChange={handleChange}
             className="border w-full px-2 py-1 text-[15px] outline-none"
           />
         </div>
 
-        <div>
+        {/* <div>
           <label className="text-sm" htmlFor="file">
             Documents
           </label>
           <br />
           <input id="file" type="file" />
-        </div>
+        </div> */}
 
         <Button type="submit" text={loading ? "Loading..." : "Submit"} />
 

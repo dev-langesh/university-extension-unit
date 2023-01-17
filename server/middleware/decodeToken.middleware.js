@@ -2,8 +2,6 @@ const jwt = require("jsonwebtoken");
 
 function decodeToken(req, res, next) {
   try {
-    console.log(req.headers);
-
     const bearerToken =
       req.headers["authorization"] || req.headers["Authorization"];
 

@@ -20,7 +20,7 @@ const schema = mongoose.Schema(
     img: String,
     code: Number,
   },
-  { collection: "courses" }
+  { collection: "course" }
 );
 
 const model = mongoose.model("course", schema);
