@@ -3,11 +3,11 @@ import { inputType } from "../types/index";
 export const inputs: inputType[] = [
   {
     name: "email",
-    placeholder: "Enter your Email",
+    placeholder: "Introduce tu correo electrónico",
   },
   {
     name: "password",
     type: "password",
-    placeholder: "Enter your Password",
+    placeholder: "Ingresa tu contraseña",
   },
 ];

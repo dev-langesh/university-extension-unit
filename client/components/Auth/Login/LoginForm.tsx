@@ -83,10 +83,10 @@ export default function LoginForm() {
     <div className="w-screen flex items-center justify-center pt-16 pb-20">
       <form
         onSubmit={handleSubmit}
-        className="shadow-2xl p-8 space-y-3 flex flex-col justify-center"
+        className="shadow-2xl p-8 space-y-3 flex flex-col justify-center md:w-[400px]"
       >
         <h1 className="text-center text-2xl font-bold pb-4 font-slab text-indigo-600">
-          Login
+          Acceso
         </h1>
         <LoginInputField handleChange={handleChange} />
 
@@ -94,10 +94,10 @@ export default function LoginForm() {
           className="text-slate-500 text-sm hover:underline"
           href="/auth/reset-password"
         >
-          Forgot Password?
+          ¿Has olvidado tu contraseña?
         </Link>
 
-        <Button type="submit" text={loading ? "Loading..." : "Submit"} />
+        <Button type="submit" text={loading ? "Cargando..." : "Entregar"} />
 
         <Footer />
 
