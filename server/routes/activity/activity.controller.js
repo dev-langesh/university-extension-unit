@@ -29,4 +29,13 @@ async function createActivity(req, res) {
   }
 }
 
-module.exports = { createActivity };
+// GET /activity
+async function getActivities(req, res) {
+  const course_id = String(req.query.course_id);
+
+  const activities = await Activity.find({ course_id });
+
+  res.json({ activities });
+}
+
+module.exports = { createActivity, getActivities };
