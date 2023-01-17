@@ -31,11 +31,28 @@ async function createActivity(req, res) {
 
 // GET /activity
 async function getActivities(req, res) {
-  const course_id = String(req.query.course_id);
+  try {
+    const course_id = String(req.query.course_id);
 
-  const activities = await Activity.find({ course_id });
+    const activities = await Activity.find({ course_id });
 
-  res.json({ activities });
+    res.json({ activities });
+  } catch (err) {
+    if (err) res.json({ error: err.message });
+  }
 }
 
-module.exports = { createActivity, getActivities };
+// DELETE /activity/:id
+async function deleteActivity(req, res) {
+  try {
+    const activity_id = req.params.id;
+
+    const activities = await Activity.findByIdAndDelete(activity_id);
+
+    res.json({ message: "activity deleted", activities });
+  } catch (err) {
+    if (err) res.json({ error: err.message });
+  }
+}
+
+module.exports = { createActivity, getActivities, deleteActivity };

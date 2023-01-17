@@ -75,20 +75,20 @@ export default function CreateActivityPage() {
         className="shadow-2xl p-8 space-y-3 flex flex-col justify-center w-4/5 sm:w-80"
       >
         <h1 className="text-center text-2xl font-bold pb-4 font-slab text-indigo-600">
-          Create Activity
+          Crear actividad
         </h1>
 
         <input
           type="text"
           name="title"
           onChange={handleChange}
-          placeholder="Title"
+          placeholder="Título"
           className="border px-2 py-1 text-[15px] outline-none"
         />
 
         <div>
           <label className="text-sm" htmlFor="date">
-            Due Date
+            Fecha de vencimiento
           </label>
           <br />
           <input

@@ -6,13 +6,15 @@ import Participants from "../../../components/course/participants";
 import CourseProvider, { CourseContext } from "../../../context/CourseProvider";
 
 export default function Course() {
-  const [page, setPage] = useState<"activities" | "participants">("activities");
+  const [page, setPage] = useState<"actividades" | "participants">(
+    "actividades"
+  );
 
   return (
     <CourseProvider>
       <CourseHeader setPage={setPage} />
 
-      {page === "activities" ? <Activities /> : <Participants />}
+      {page === "actividades" ? <Activities /> : <Participants />}
     </CourseProvider>
   );
 }

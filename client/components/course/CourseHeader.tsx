@@ -9,9 +9,9 @@ export default function CourseHeader({ setPage }: { setPage: any }) {
 
   return (
     <header className="w-full p-3 flex items-center justify-center space-x-6">
-      {role === "admin" && <ButtonWithLink text="Create Activity" />}
-      <Button setPage={setPage} text="Activities" />
-      <Button setPage={setPage} text="Participants" />
+      {role !== "student" && <ButtonWithLink text="Crear actividad" />}
+      <Button setPage={setPage} text="Actividades" />
+      <Button setPage={setPage} text="Los participantes" />
     </header>
   );
 }
