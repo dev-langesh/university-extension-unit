@@ -108,7 +108,7 @@ export default function CreateActivityPage() {
           <input id="file" type="file" />
         </div> */}
 
-        <Button type="submit" text={loading ? "Loading..." : "Submit"} />
+        <Button type="submit" text={loading ? "Cargando..." : "Entregar"} />
 
         <Snackbar
           onClose={closeError}
