@@ -39,7 +39,7 @@ export default function UploadImage() {
             onClick={chooseImage}
             className="bg-indigo-600 text-white px-2 py-1"
           >
-            Choose
+            Elegir imagen{" "}
           </button>
         )}
       </div>
@@ -49,7 +49,7 @@ export default function UploadImage() {
           onClick={chooseImage}
           className="bg-indigo-600 text-white px-2 mt-2"
         >
-          Change
+          Cambio
         </button>
       )}
     </section>

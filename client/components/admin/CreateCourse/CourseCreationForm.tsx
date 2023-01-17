@@ -70,7 +70,7 @@ export default function CourseCreationForm() {
         className="p-6 shadow-2xl m-10 flex flex-col space-y-3"
       >
         <h1 className="text-center text-xl font-slab font-bold pb-2 text-indigo-600">
-          Create New Course
+          Crear nuevo curso
         </h1>
 
         <CourseCreationInputField
@@ -80,7 +80,7 @@ export default function CourseCreationForm() {
 
         <UploadImage />
 
-        <Button type="button" handleClick={submitHandler} text="Submit" />
+        <Button type="button" handleClick={submitHandler} text="Entregar" />
 
         <Snackbar
           open={error.open}

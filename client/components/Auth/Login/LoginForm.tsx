@@ -88,7 +88,7 @@ export default function LoginForm() {
         <h1 className="text-center text-2xl font-bold pb-4 font-slab text-indigo-600">
           Acceso
         </h1>
-        <LoginInputField handleChange={handleChange} />
+        <LoginInputField state={state} handleChange={handleChange} />
 
         <Link
           className="text-slate-500 text-sm hover:underline"

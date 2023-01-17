@@ -57,7 +57,7 @@ export default function Profile() {
       <h1>{profile.name}</h1>
       <p className="text-slate-600">{profile.email}</p>
 
-      <Button handleClick={logout} text="logout" type="button" />
+      <Button handleClick={logout} text="cerrar sesión" type="button" />
     </div>
   );
 }

@@ -65,7 +65,7 @@ export default function CourseCard({
         </main>
       </Link>
       <div className="flex justify-between items-center px-4">
-        <span className="text-sm text-slate-500">Course Code: {code}</span>
+        <span className="text-sm text-slate-500">Código del curso: {code}</span>
         {user === "admin" ||
           (user === "administrator" && (
             <IconButton

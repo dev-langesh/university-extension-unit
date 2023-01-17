@@ -3,10 +3,10 @@ import { inputType } from "../../Auth/types";
 export const inputs: inputType[] = [
   {
     name: "title",
-    placeholder: "Course Title",
+    placeholder: "Título del curso",
   },
   {
     name: "sub_title",
-    placeholder: "Sub Title",
+    placeholder: "Subtítulo",
   },
 ];

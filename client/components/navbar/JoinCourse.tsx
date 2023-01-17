@@ -66,16 +66,16 @@ export default function JoinCourse() {
       className="absolute top-14 bg-white right-3 text-black rounded-sm shadow-lg p-4 space-y-4"
     >
       <h1 className="text-xl font-bold font-slab text-center text-indigo-600">
-        Join Classroom
+        Unirse al aula{" "}
       </h1>
       <input
         onChange={handleChange}
         type="text"
         value={state}
-        placeholder="Enter course code"
+        placeholder="Ingrese el código del curso"
         className="border w-full px-2 py-1 text-[15px] outline-none"
       />
-      <Button text="Join" type="submit" />
+      <Button text="Entrar" type="submit" />
 
       <Snackbar open={error.open} autoHideDuration={6000} onClose={closeError}>
         <Alert onClose={closeError} severity="error">

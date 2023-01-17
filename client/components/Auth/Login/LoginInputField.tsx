@@ -2,10 +2,11 @@ import React from "react";
 import { inputs } from "./inputs";
 
 type propType = {
+  state: any;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function LoginInputField({ handleChange }: propType) {
+export default function LoginInputField({ state, handleChange }: propType) {
   return (
     <>
       {" "}
@@ -15,6 +16,7 @@ export default function LoginInputField({ handleChange }: propType) {
             onChange={handleChange}
             className="border px-2 py-1 text-[15px] outline-none"
             {...inp}
+            value={state[inp.name]}
             key={i}
           />
         );
