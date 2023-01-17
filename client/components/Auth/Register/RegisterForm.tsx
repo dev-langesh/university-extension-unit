@@ -88,14 +88,14 @@ export default function RegisterForm() {
         className="shadow-2xl p-8 space-y-3 flex flex-col justify-center w-4/5 sm:w-80"
       >
         <h1 className="text-center text-2xl font-bold pb-4 font-slab text-indigo-600">
-          Register
+          Registro
         </h1>
 
         <RadioGroup state={state} setUserType={setUserType} />
 
         <FormFields handleChange={handleChange} />
 
-        <Button type="submit" text={loading ? "Loading..." : "Submit"} />
+        <Button type="submit" text={loading ? "Cargando..." : "Entregar"} />
 
         <Footer />
         <Snackbar

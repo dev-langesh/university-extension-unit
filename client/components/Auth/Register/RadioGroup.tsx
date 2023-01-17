@@ -19,7 +19,7 @@ export default function RadioGroup({ state, setUserType }: RadioGroupType) {
           inputProps={{ "aria-label": "Student" }}
           size="small"
         />{" "}
-        Student
+        Alumna
       </div>
       <div className="flex items-center">
         <Radio
@@ -30,7 +30,7 @@ export default function RadioGroup({ state, setUserType }: RadioGroupType) {
           inputProps={{ "aria-label": "Administerator" }}
           size="small"
         />{" "}
-        Administrator
+        Administrador
       </div>
     </section>
   );

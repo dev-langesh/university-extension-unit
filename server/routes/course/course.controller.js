@@ -9,6 +9,19 @@ async function getCourses(req, res) {
   res.json(courses);
 }
 
+// GET /course/:id/participants
+async function getParticipants(req, res) {
+  try {
+    const course_id = req.params.id;
+
+    const participants = await Course.findById(course_id).select("students");
+
+    res.json(participants);
+  } catch (err) {
+    if (err) res.status(400).json({ error: err.message });
+  }
+}
+
 // POST /course
 async function createCourse(req, res) {
   try {
@@ -110,9 +123,10 @@ async function getRegisteredCourses(req, res) {
 }
 
 module.exports = {
-  createCourse,
   getCourses,
-  deleteCourse,
-  registerInCourse,
   getRegisteredCourses,
+  getParticipants,
+  createCourse,
+  registerInCourse,
+  deleteCourse,
 };

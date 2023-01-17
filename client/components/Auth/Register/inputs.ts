@@ -3,11 +3,11 @@ import { inputType, RegisterStateType } from "../types/index";
 export const inputs: inputType[] = [
   {
     name: "username",
-    placeholder: "User Name",
+    placeholder: "Nombre de usuario",
   },
   {
     name: "phone",
-    placeholder: "Phone",
+    placeholder: "Teléfono",
   },
   {
     name: "email",
@@ -16,12 +16,12 @@ export const inputs: inputType[] = [
   {
     name: "password",
     type: "password",
-    placeholder: "Password",
+    placeholder: "Contraseña",
   },
   {
     name: "confirmPassword",
     type: "password",
-    placeholder: "Confirm Password",
+    placeholder: "Confirmar contraseña",
   },
 ];
 
