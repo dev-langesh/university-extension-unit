@@ -1,11 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 const { AuthRouter } = require("./routes/auth/auth.route");
 const { connectDb } = require("./utils/connectDb");
-const cors = require("cors");
 const { userRouter } = require("./routes/user/user.route");
 const { CourseRouter } = require("./routes/course/course.route");
-const path = require("path");
 const { ActivityRouter } = require("./routes/activity/activity.route");
+const { SubmitRouter } = require("./routes/submit/submit.route");
 
 const app = express();
 
@@ -27,6 +27,7 @@ app.use("/auth", AuthRouter);
 app.use("/user", userRouter);
 app.use("/course", CourseRouter);
 app.use("/activity", ActivityRouter);
+app.use("/submit", SubmitRouter);
 
 app.get("/", (req, res) => {
   res.send("server is running");
