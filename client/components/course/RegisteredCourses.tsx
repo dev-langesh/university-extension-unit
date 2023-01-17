@@ -36,7 +36,7 @@ export default function RegisteredCourses() {
     <div>
       <div className="p-6 w-full ">
         <h1 className="text-center text-xl font-slab font-bold pb-2 text-indigo-600">
-          Registered Courses
+          Cursos registrados
         </h1>{" "}
         <section className="flex flex-wrap flex-col md:flex-row items-center justify-center">
           {courses.length === 0 && (
