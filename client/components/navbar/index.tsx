@@ -8,8 +8,6 @@ import UserNav from "./UserNav";
 export default function Navbar() {
   const user = useContext(AuthContext);
 
-  console.log(user);
-
   return (
     <header className="p-4 flex items-center justify-between bg-gradient-to-tr from-blue-500 to-indigo-500 text-white">
       <h1 className="font-slab font-bold md:text-xl">

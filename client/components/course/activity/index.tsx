@@ -34,7 +34,6 @@ export default function Activities() {
           <h1 className="text-slate-500 text-center pt-10">Sin actividades</h1>
         )}
         {data.map((activity: any) => {
-          console.log(activity);
           return (
             <ActivityCard
               key={activity._id}

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { decodeToken } from "./decodeToken";
 
 export function useUserRole() {
-  const [role, setRole] = useState<"admin" | "administrator" | "student">(
-    "student"
-  );
+  const [role, setRole] = useState<
+    "admin" | "administrator" | "student" | null
+  >(null);
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
