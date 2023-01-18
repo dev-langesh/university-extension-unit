@@ -5,7 +5,7 @@ import UploadWork from "../../../components/course/activity/upload/UploadWork";
 import { useUserRole } from "../../../components/hooks/useUserRole";
 
 export default function Activity() {
-  const [type, setType] = useUserRole();
+  const type = useUserRole();
 
   return (
     <div className="grid grid-cols-12 grid-rows-6 ">

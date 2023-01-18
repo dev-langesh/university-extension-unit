@@ -25,7 +25,7 @@ async function getProfileDetails(req, res) {
       userType: user.userType,
     });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.json({ error: err.message });
   }
 }
 

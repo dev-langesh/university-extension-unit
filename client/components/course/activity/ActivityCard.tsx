@@ -2,7 +2,9 @@ import { DeleteOutline } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { decodeToken } from "../../hooks/decodeToken";
+import { useUserRole } from "../../hooks/useUserRole";
 
 type propType = {
   title: string;
@@ -11,6 +13,8 @@ type propType = {
 };
 
 export default function ActivityCard({ title, date, id }: propType) {
+  const role = useUserRole();
+
   async function deleteActivity() {
     const req = await axios.delete(`http://localhost:8000/activity/${id}`);
 
@@ -31,11 +35,13 @@ export default function ActivityCard({ title, date, id }: propType) {
           <h1>{title}</h1>
         </div>
       </Link>
-      <div>
-        <IconButton onClick={deleteActivity} sx={{ color: "red" }}>
-          <DeleteOutline />
-        </IconButton>
-      </div>
+      {role !== "student" && (
+        <div>
+          <IconButton onClick={deleteActivity} sx={{ color: "red" }}>
+            <DeleteOutline />
+          </IconButton>
+        </div>
+      )}
     </div>
   );
 }

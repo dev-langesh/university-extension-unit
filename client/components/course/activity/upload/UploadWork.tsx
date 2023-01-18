@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Alert, Snackbar } from "@mui/material";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -12,6 +12,8 @@ export default function UploadWork() {
     msg: "",
   });
   const [loading, setLoading] = useState<boolean>(false);
+
+  const formRef = useRef(null);
 
   const router = useRouter();
 
@@ -27,23 +29,44 @@ export default function UploadWork() {
     e.preventDefault();
 
     try {
-      //   await validateRegister({ state });
-      //   setLoading(true);
-      //   const req = await axios.post(
-      //     "http://localhost:8000/auth/register",
-      //     state
-      //   );
-      //   const data = req.data;
-      //   setLoading(false);
-      //   if (data.error) {
-      //     setError({
-      //       open: true,
-      //       msg: data.error,
-      //     });
-      //   } else {
-      //     setState(initialRegisterState);
-      //     router.push("/auth/verify-email");
-      //   }
+      let formData;
+
+      if (formRef.current) {
+        formData = new FormData(formRef.current);
+      }
+
+      const token = window.localStorage.getItem("token");
+
+      if (!token) {
+        return [];
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      setLoading(true);
+      const req = await axios.post(
+        "http://localhost:8000/submit",
+        formData,
+        config
+      );
+
+      setLoading(false);
+
+      const data = req.data;
+
+      if (data.error) {
+        setError({
+          open: true,
+          msg: data.error,
+        });
+      }
+      // else {
+      //   router.push("/auth/verify-email");
+      // }
     } catch (err) {
       if (err) {
         setError({
@@ -57,6 +80,7 @@ export default function UploadWork() {
   return (
     <div className="w-screen flex items-center justify-center pt-16 pb-10">
       <form
+        ref={formRef}
         onSubmit={handleSubmit}
         className="shadow-2xl p-8 space-y-3 flex flex-col justify-center w-4/5 sm:w-80"
       >
@@ -64,7 +88,7 @@ export default function UploadWork() {
           Upload Work
         </h1>
 
-        <input type="file" />
+        <input type="file" name="work" />
 
         <Button type="submit" text={loading ? "Loading..." : "Submit"} />
 

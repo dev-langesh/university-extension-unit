@@ -22,7 +22,8 @@ async function submitWork(req, res) {
 
     res.json({ message: "Marked as completed", submission });
   } catch (err) {
-    if (err) req.status(400).json({ error: "Something went wrong" });
+    console.log(err);
+    if (err) res.status(400).json({ error: "Something went wrong" });
   }
 }
 
