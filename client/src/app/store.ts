@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import CourseCreationReducer from "../features/admin/courseCreationSlice";
 import ProfileReducer from "../features/profile/profileSlice";
+import SubmitReducer from "../features/submission/uploadWork.slice";
 
 export const store = configureStore({
   reducer: {
     profile: ProfileReducer,
     CCF: CourseCreationReducer,
+    submit: SubmitReducer,
   },
 });
 
