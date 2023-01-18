@@ -6,7 +6,7 @@ async function submitWork(req, res) {
   try {
     const { activity_id } = req.body;
     const student_id = req.id;
-    const url = req.file;
+    const url = req.url;
     const submitted_at = format(new Date(), "yyyy-MM-dd");
     const status = "completed";
 
@@ -23,7 +23,7 @@ async function submitWork(req, res) {
     res.json({ message: "Marked as completed", submission });
   } catch (err) {
     console.log(err);
-    if (err) res.status(400).json({ error: "Something went wrong" });
+    if (err) res.status(200).json({ error: "Something went wrong" });
   }
 }
 

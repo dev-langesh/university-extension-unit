@@ -1,12 +1,10 @@
 import React, { useRef, useState } from "react";
 import { Alert, Snackbar } from "@mui/material";
-import { useRouter } from "next/router";
 import axios from "axios";
 import { errorType } from "../../../Auth/types";
 import Button from "../../../common/buttons/Button";
 
 export default function UploadWork() {
-  const [state, setState] = useState<any>("");
   const [error, setError] = useState<errorType>({
     open: false,
     msg: "",
@@ -14,8 +12,6 @@ export default function UploadWork() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const formRef = useRef(null);
-
-  const router = useRouter();
 
   const closeError = () => {
     setError((prev) => ({ ...prev, open: false }));
@@ -28,52 +24,44 @@ export default function UploadWork() {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    try {
-      let formData;
+    let formData;
 
-      if (formRef.current) {
-        formData = new FormData(formRef.current);
-      }
+    if (formRef.current) {
+      formData = new FormData(formRef.current);
+    }
 
-      const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem("token");
 
-      if (!token) {
-        return [];
-      }
+    if (!token) {
+      return [];
+    }
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-      setLoading(true);
-      const req = await axios.post(
-        "http://localhost:8000/submit",
-        formData,
-        config
-      );
+    setLoading(true);
+    const req = await axios.post(
+      "http://localhost:8000/submit",
+      formData,
+      config
+    );
 
-      setLoading(false);
+    setLoading(false);
 
-      const data = req.data;
+    const data = req.data;
 
-      if (data.error) {
-        setError({
-          open: true,
-          msg: data.error,
-        });
-      }
-      // else {
-      //   router.push("/auth/verify-email");
-      // }
-    } catch (err) {
-      if (err) {
-        setError({
-          open: true,
-          msg: err,
-        });
-      }
+    console.log(data);
+
+    if (data.error) {
+      setError({
+        open: true,
+        msg: data.error,
+      });
+    } else {
+      history.back();
     }
   };
 

@@ -20,11 +20,13 @@ export default function Profile() {
         token,
       });
 
-      const data: {
-        username: string;
-        userType: "student" | "administrator";
-        email: string;
-      } = req.data;
+      const data = req.data;
+
+      if (data.error) {
+        window.localStorage.clear();
+
+        window.location.reload();
+      }
 
       if (data) {
         dispatch(
