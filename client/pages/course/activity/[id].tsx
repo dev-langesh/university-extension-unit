@@ -1,7 +1,7 @@
 import React from "react";
 import CompletedWork from "../../../components/course/activity/status/CompletedWork";
 import StatusContainer from "../../../components/course/activity/status/StatusContainer";
-import UploadWork from "../../../components/course/activity/upload/UploadWork";
+import UploadWork from "../../../components/course/activity/submit/Work";
 import { useUserRole } from "../../../components/hooks/useUserRole";
 
 export default function Activity() {

@@ -10,10 +10,12 @@ const schema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "activity",
     },
-    status: String,
+    comment: String,
+    status: { type: String, default: "Pending" },
     url: String,
     marks: Number,
     submitted_at: String,
+    file_name: String,
   },
   { collection: "submission", timestamps: true }
 );

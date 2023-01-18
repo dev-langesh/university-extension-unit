@@ -1,10 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Alert, Snackbar } from "@mui/material";
 import axios from "axios";
 import { errorType } from "../../../Auth/types";
 import Button from "../../../common/buttons/Button";
 import { useAppSelector } from "../../../../src/app/hooks";
 import { getSelectedActivity } from "../../../../src/features/submission/uploadWork.slice";
+import UploadForm from "./UploadForm";
+import ActivityDetails from "./ActivityDetails";
+import CompletedWork from "../status/CompletedWork";
 
 export default function UploadWork() {
   const [error, setError] = useState<errorType>({
@@ -12,10 +15,50 @@ export default function UploadWork() {
     msg: "",
   });
   const [loading, setLoading] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState<any>({
+    stauts: false,
+    work: {},
+  });
 
   const formRef = useRef(null);
 
   const activity = useAppSelector(getSelectedActivity);
+
+  useEffect(() => {
+    async function getSubmittedWork() {
+      const token = window.localStorage.getItem("token");
+
+      if (!token) {
+        return [];
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      setLoading(true);
+      const req = await axios.get("http://localhost:8000/submit", config);
+
+      setLoading(false);
+
+      const data = req.data;
+
+      if (data.work) {
+        setSubmitted({
+          status: true,
+          work: data.work,
+        });
+      }
+
+      if (data.error) {
+        setError(data.error);
+      }
+    }
+
+    getSubmittedWork();
+  }, []);
 
   const closeError = () => {
     setError((prev) => ({ ...prev, open: false }));
@@ -71,35 +114,22 @@ export default function UploadWork() {
 
   return (
     <div className="w-screen flex items-center justify-around pt-16 pb-10 row-span-6 col-span-12">
-      <div>
-        <h1 className="text-black">{activity.activity_title}</h1>
-        <p className="text-sm text-slate-500">
-          Fecha de vencimiento: {activity.due_date}
-        </p>
-      </div>
-      <form
-        ref={formRef}
-        onSubmit={handleSubmit}
-        className="shadow-2xl p-8 space-y-3 flex flex-col justify-center w-4/5 sm:w-80"
-      >
-        <h1 className="text-center text-2xl font-bold pb-4 font-slab text-indigo-600">
-          Subir trabajo
-        </h1>
+      <ActivityDetails
+        title={activity.activity_title}
+        due_date={activity.due_date}
+      />
 
-        <input type="file" name="work" />
-
-        <Button type="submit" text={loading ? "Cargando..." : "Entregar"} />
-
-        <Snackbar
-          onClose={closeError}
-          open={error.open}
-          autoHideDuration={6000}
-        >
-          <Alert onClose={closeError} severity="error">
-            {error.msg}
-          </Alert>
-        </Snackbar>
-      </form>
+      {submitted.status ? (
+        <CompletedWork work={submitted.work} />
+      ) : (
+        <UploadForm
+          handleSubmit={handleSubmit}
+          closeError={closeError}
+          error={error}
+          formRef={formRef}
+          loading={loading}
+        />
+      )}
     </div>
   );
 }

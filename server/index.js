@@ -6,6 +6,7 @@ const { userRouter } = require("./routes/user/user.route");
 const { CourseRouter } = require("./routes/course/course.route");
 const { ActivityRouter } = require("./routes/activity/activity.route");
 const { SubmitRouter } = require("./routes/submit/submit.route");
+const { Submit } = require("./models/submitions.model");
 
 const app = express();
 
@@ -29,7 +30,11 @@ app.use("/course", CourseRouter);
 app.use("/activity", ActivityRouter);
 app.use("/submit", SubmitRouter);
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  const d = await Submit.deleteMany({});
+
+  console.log(d);
+
   res.send("server is running");
 });
 
