@@ -14,6 +14,7 @@ import {
   openCCF,
 } from "../../src/features/admin/courseCreationSlice";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function AdminNav() {
   const profile = useAppSelector(getProfile);
@@ -29,10 +30,6 @@ export default function AdminNav() {
     }
   }
 
-  function openCourseCreation() {
-    dispatch(openCCF());
-  }
-
   return (
     <section>
       <IconButton
@@ -44,9 +41,11 @@ export default function AdminNav() {
       >
         <ViewQuiltIcon />
       </IconButton>
-      <IconButton onClick={openCourseCreation} sx={{ color: "white" }}>
-        <AddIcon />
-      </IconButton>
+      <Link href="/course/create">
+        <IconButton sx={{ color: "white" }}>
+          <AddIcon />
+        </IconButton>
+      </Link>
       <IconButton onClick={accountClickHandler} sx={{ color: "white" }}>
         <AccountCircleIcon />
       </IconButton>
