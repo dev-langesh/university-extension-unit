@@ -1,5 +1,7 @@
 const { format } = require("date-fns");
+const { Activity } = require("../../models/activity.model");
 const { Submit } = require("../../models/submitions.model");
+const { User } = require("../../models/user.model");
 
 // GET /submit/
 async function getSubmittedWork(req, res) {
@@ -25,9 +27,7 @@ async function submitWork(req, res) {
     const student_id = req.id;
     const url = req.url;
     const submitted_at = format(new Date(), "yyyy-MM-dd");
-    const status = "Completed";
-
-    console.log(req.file);
+    const status = "completed";
 
     const data = {
       activity_id,
@@ -48,6 +48,18 @@ async function submitWork(req, res) {
     const submission = await Submit.create(data);
 
     console.log(submission);
+
+    await Activity.updateOne(
+      {
+        _id: activity_id,
+        "students.student_id": student_id,
+      },
+      {
+        $set: {
+          "students.$.status": "completed",
+        },
+      }
+    );
 
     res.json({ message: "Marked as completed", submission });
   } catch (err) {

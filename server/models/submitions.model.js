@@ -10,8 +10,12 @@ const schema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "activity",
     },
+    course_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "course",
+    },
     comment: String,
-    status: { type: String, default: "Pending" },
+    status: { type: String, default: "pending" },
     url: String,
     marks: Number,
     submitted_at: String,

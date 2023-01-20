@@ -21,6 +21,7 @@ async function createActivity(req, res) {
       admin_id,
       title,
       due_date,
+      students: course.students,
     });
 
     res.json({ message: "Activity created", activity });
@@ -55,4 +56,25 @@ async function deleteActivity(req, res) {
   }
 }
 
-module.exports = { createActivity, getActivities, deleteActivity };
+// GET /activity/:id/status
+async function getStatus(req, res) {
+  const activity_id = req.params.id;
+
+  const data = await Activity.findById(activity_id);
+
+  const students = data.students;
+
+  console.log(students);
+
+  const completed = students.filter((student) => {
+    return student.status === "completed";
+  });
+
+  const pending = students.filter((student) => {
+    return student.status === "pending";
+  });
+
+  res.json({ completed, pending });
+}
+
+module.exports = { createActivity, getActivities, deleteActivity, getStatus };

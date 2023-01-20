@@ -11,6 +11,19 @@ const schema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
+  students: [
+    {
+      student_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+      email: String,
+      status: {
+        type: String,
+        default: "pending",
+      },
+    },
+  ],
 });
 
 const model = mongoose.model("activity", schema);
