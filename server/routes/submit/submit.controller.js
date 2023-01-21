@@ -6,7 +6,7 @@ const { User } = require("../../models/user.model");
 // GET /submit/
 async function getSubmittedWork(req, res) {
   try {
-    const student_id = req.id;
+    const student_id = req.query.student_id;
 
     const work = await Submit.findOne({ student_id });
 
