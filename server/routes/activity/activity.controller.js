@@ -58,23 +58,31 @@ async function deleteActivity(req, res) {
 
 // GET /activity/:id/status
 async function getStatus(req, res) {
-  const activity_id = req.params.id;
+  try {
+    const activity_id = req.params.id;
 
-  const data = await Activity.findById(activity_id);
+    const data = await Activity.findById(activity_id);
 
-  const students = data.students;
+    if (!data) {
+      throw new Error("Record not found");
+    }
 
-  console.log(students);
+    const students = data.students;
 
-  const completed = students.filter((student) => {
-    return student.status === "completed";
-  });
+    console.log(students);
 
-  const pending = students.filter((student) => {
-    return student.status === "pending";
-  });
+    const completed = students.filter((student) => {
+      return student.status === "completed";
+    });
 
-  res.json({ completed, pending });
+    const pending = students.filter((student) => {
+      return student.status === "pending";
+    });
+
+    res.json({ completed, pending });
+  } catch (err) {
+    if (err) res.json({ error: err.message });
+  }
 }
 
 module.exports = { createActivity, getActivities, deleteActivity, getStatus };

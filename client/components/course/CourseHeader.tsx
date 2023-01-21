@@ -42,11 +42,15 @@ function ButtonWithLink({ text }: { text: string }) {
   }, [router.query]);
 
   return (
-    <Link
-      href={`/course/${id}/create-activity`}
-      className="text-slate-600 cursor-pointer border-b-2 border-white hover:border-indigo-600"
-    >
-      {text}
-    </Link>
+    <>
+      {id && (
+        <Link
+          href={`/course/${id}/create-activity`}
+          className="text-slate-600 cursor-pointer border-b-2 border-white hover:border-indigo-600"
+        >
+          {text}
+        </Link>
+      )}
+    </>
   );
 }
