@@ -3,12 +3,13 @@ const { Activity } = require("../../models/activity.model");
 const { Submit } = require("../../models/submitions.model");
 const { User } = require("../../models/user.model");
 
-// GET /submit/
+// GET /submit/?student_id=""&activity_id=""
 async function getSubmittedWork(req, res) {
   try {
     const student_id = req.query.student_id;
+    const activity_id = req.query.activity_id;
 
-    const work = await Submit.findOne({ student_id });
+    const work = await Submit.findOne({ student_id, activity_id });
 
     if (!work) {
       throw new Error("Record not found");
@@ -39,7 +40,11 @@ async function submitWork(req, res) {
       file_name: req.file.originalname,
     };
 
-    const work = await Submit.findOne({ student_id });
+    console.log(data);
+
+    const work = await Submit.findOne({ student_id, activity_id });
+
+    console.log(work);
 
     if (work) {
       throw new Error("Already submitted");

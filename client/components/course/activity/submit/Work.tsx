@@ -8,6 +8,8 @@ import { getSelectedActivity } from "../../../../src/features/submission/uploadW
 import UploadForm from "./UploadForm";
 import ActivityDetails from "./ActivityDetails";
 import CompletedWork from "../status/CompletedWork";
+import { useRouter } from "next/router";
+import { decodeToken } from "../../../hooks/decodeToken";
 
 export default function UploadWork() {
   const [error, setError] = useState<errorType>({
@@ -24,6 +26,8 @@ export default function UploadWork() {
 
   const activity = useAppSelector(getSelectedActivity);
 
+  const router = useRouter();
+
   useEffect(() => {
     async function getSubmittedWork() {
       const token = window.localStorage.getItem("token");
@@ -32,18 +36,18 @@ export default function UploadWork() {
         return [];
       }
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
       setLoading(true);
-      const req = await axios.get("http://localhost:8000/submit", config);
+      const activity_id = router.query.id;
 
+      const obj = decodeToken(token);
+
+      const req = await axios.get(
+        `http://localhost:8000/submit/?student_id=${obj.id}&activity_id=${activity_id}`
+      );
       setLoading(false);
 
       const data = req.data;
+      console.log(data);
 
       if (data.work) {
         setSubmitted({
@@ -75,6 +79,10 @@ export default function UploadWork() {
 
     if (formRef.current) {
       formData = new FormData(formRef.current);
+
+      const activity_id = activity.activity_id;
+
+      formData.append("activity_id", activity_id);
     }
 
     const token = window.localStorage.getItem("token");
@@ -120,7 +128,7 @@ export default function UploadWork() {
       />
 
       {submitted.status ? (
-        <CompletedWork work={submitted.work} />
+        <CompletedWork work={submitted} />
       ) : (
         <UploadForm
           handleSubmit={handleSubmit}

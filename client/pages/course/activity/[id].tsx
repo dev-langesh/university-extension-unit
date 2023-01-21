@@ -70,8 +70,10 @@ export default function Activity() {
         return [];
       }
 
+      const activity_id = router.query.id;
+
       const req = await axios.get(
-        `http://localhost:8000/submit/?student_id=${studentId}`
+        `http://localhost:8000/submit/?student_id=${studentId}&activity_id=${activity_id}`
       );
 
       const data = req.data;
