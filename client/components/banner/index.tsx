@@ -25,13 +25,13 @@ export default function Banner() {
         />
       </section>
 
-      <section className="relative">
+      <section className="">
         <img
-          className="relative w-72 h-60 md:w-96 md:h-72 object-cover"
+          className=" w-72 h-60 md:w-96 md:h-72 object-cover z-10 "
           src="/images/classroom.jpg"
           alt="Classroom"
         />
-        <div className="w-72 h-60 md:w-96 md:h-72 absolute bg-gradient-to-br from-blue-500 to-indigo-500 top-3 -left-3 -z-10 "></div>
+        <div className="w-72 h-60 md:w-96 md:h-72 absolute bg-gradient-to-br from-blue-500 to-indigo-500 transform -translate-x-[18px] -translate-y-[270px] -z-10 "></div>
       </section>
     </section>
   );

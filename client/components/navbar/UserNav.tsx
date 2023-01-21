@@ -12,6 +12,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import JoinClassroom from "./JoinCourse";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function UserNav() {
   const profile = useAppSelector(getProfile);
@@ -28,9 +29,11 @@ export default function UserNav() {
 
   return (
     <div className="">
-      <IconButton sx={{ color: "white" }}>
-        <ViewQuiltIcon />
-      </IconButton>
+      <Link href="/user/dashboard">
+        <IconButton sx={{ color: "white" }}>
+          <ViewQuiltIcon />
+        </IconButton>
+      </Link>
       <IconButton onClick={() => setJoin((p) => !p)} sx={{ color: "white" }}>
         <AddIcon />
       </IconButton>

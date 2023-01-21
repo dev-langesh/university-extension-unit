@@ -54,7 +54,7 @@ export default function Profile() {
     <div
       className={`${
         profile.openProfile ? "block" : "hidden"
-      } b-0 bg-white shadow-xl text-black p-4 absolute z-30 right-3 rounded space-y-2 text-center`}
+      } b-0 bg-white shadow-xl text-black p-4 absolute z-50 right-3 rounded space-y-2 text-center`}
     >
       <h1>{profile.name}</h1>
       <p className="text-slate-600">{profile.email}</p>
