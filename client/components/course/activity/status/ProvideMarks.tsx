@@ -1,14 +1,19 @@
+import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Button from "../../../common/buttons/Button";
+import { decodeToken } from "../../../hooks/decodeToken";
 
-export default function ProvideMarks() {
+export default function ProvideMarks(props: any) {
   const [state, setState] = useState<{
     comment: string;
-    marks: number;
+    marks: number | string;
   }>({
     comment: "",
-    marks: 0,
+    marks: "",
   });
+
+  const router = useRouter();
 
   const changeHandler = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -21,8 +26,24 @@ export default function ProvideMarks() {
     });
   };
 
-  const submitHandler = (e: React.SyntheticEvent) => {
+  const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
+    const token = window.localStorage.getItem("token");
+
+    if (token) {
+      const obj = decodeToken(token);
+
+      const activity_id = router.query.id;
+
+      console.log(props);
+
+      const req = await axios.put(
+        `http://localhost:8000/submit/?student_id=${props.studentId}&activity_id=${activity_id}&marks=${state.marks}&remarks=${state.comment}`
+      );
+
+      const data = req.data;
+    }
   };
 
   return (

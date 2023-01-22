@@ -3,6 +3,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import { IconButton } from "@mui/material";
 import Button from "../../../common/buttons/Button";
 import { useUserRole } from "../../../hooks/useUserRole";
+import ProvideMarks from "./ProvideMarks";
 
 export default function CompletedWork(props: any) {
   const role = useUserRole();
@@ -26,24 +27,27 @@ export default function CompletedWork(props: any) {
       <br />
       <br />
 
-      {role !== "student" && (
-        <form className="space-y-6">
-          <textarea
-            className="border p-2 outline-none w-full"
-            placeholder="Observaciones"
-            name="comment"
-            id=""
-            cols={30}
-            rows={5}
-          ></textarea>{" "}
-          <input
-            type="text"
-            className="border px-2 py-1 text-[15px] outline-none  w-full"
-            placeholder="Introducir marca de actividad"
-          />
-          <Button type="submit" text="Submit" />
-        </form>
-      )}
+      {role !== "student" &&
+        (props.work.work.reviewed ? (
+          <div className="space-y-4">
+            <h1 className="font-bold font-slab text-xl text-indigo-600 text-center pt-4">
+              Your Review
+            </h1>
+            <p>
+              Your comment
+              <br />
+              <span className="text-slate-500 text-sm">
+                {props.work.work.remarks}
+              </span>
+            </p>
+            <p>
+              Score <br />{" "}
+              <span className="text-slate-500">{props.work.work.score}</span>
+            </p>
+          </div>
+        ) : (
+          <ProvideMarks studentId={props.work.work.student_id} />
+        ))}
     </div>
   );
 }

@@ -40,19 +40,13 @@ async function submitWork(req, res) {
       file_name: req.file.originalname,
     };
 
-    console.log(data);
-
     const work = await Submit.findOne({ student_id, activity_id });
-
-    console.log(work);
 
     if (work) {
       throw new Error("Already submitted");
     }
 
     const submission = await Submit.create(data);
-
-    console.log(submission);
 
     await Activity.updateOne(
       {
@@ -73,4 +67,26 @@ async function submitWork(req, res) {
   }
 }
 
-module.exports = { submitWork, getSubmittedWork };
+// PUT /submit/?student_id=""&activity_id=""
+async function provideMarks(req, res) {
+  try {
+    const { student_id, activity_id, marks, remarks } = req.query;
+
+    const work = await Submit.findOneAndUpdate(
+      { student_id, activity_id },
+      { $set: { score: marks, remarks, reviewed: true } }
+    );
+
+    console.log(work);
+
+    if (!work) {
+      throw new Error("Record not found");
+    }
+
+    return res.json({ work });
+  } catch (err) {
+    if (err) res.json({ error: err });
+  }
+}
+
+module.exports = { submitWork, getSubmittedWork, provideMarks };
