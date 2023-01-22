@@ -18,14 +18,16 @@ export default function EventsContainer() {
   }, []);
 
   return (
-    <section className="pb-10">
+    <section className="py-10">
       <h1 className="text-center text-indigo-600 text-2xl font-slab font-bold">
         Eventos
       </h1>
 
-      {events.map((event) => {
-        return <EventCard {...event} />;
-      })}
+      <div className="flex flex-wrap items-center justify-center">
+        {events.map((event) => {
+          return <EventCard {...event} />;
+        })}
+      </div>
     </section>
   );
 }
