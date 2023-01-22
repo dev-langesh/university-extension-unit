@@ -3,6 +3,7 @@ const {
   getActivities,
   deleteActivity,
   getStatus,
+  getActivity,
 } = require("./activity.controller");
 const { decodeToken } = require("../../middleware/decodeToken.middleware");
 const {
@@ -12,6 +13,7 @@ const {
 const router = require("express").Router();
 
 router.get("/", getActivities);
+router.get("/:id", getActivity);
 router.get("/:id/status", getStatus);
 router.post(
   "/",

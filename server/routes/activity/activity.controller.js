@@ -22,6 +22,7 @@ async function createActivity(req, res) {
       title,
       due_date,
       students: course.students,
+      material: req.url,
     });
 
     res.json({ message: "Activity created", activity });
@@ -36,6 +37,19 @@ async function getActivities(req, res) {
     const course_id = String(req.query.course_id);
 
     const activities = await Activity.find({ course_id });
+
+    res.json({ activities });
+  } catch (err) {
+    if (err) res.json({ error: err.message });
+  }
+}
+
+// GET /activity/:id
+async function getActivity(req, res) {
+  try {
+    const activity_id = req.params.id;
+
+    const activities = await Activity.findById(activity_id);
 
     res.json({ activities });
   } catch (err) {
@@ -85,4 +99,10 @@ async function getStatus(req, res) {
   }
 }
 
-module.exports = { createActivity, getActivities, deleteActivity, getStatus };
+module.exports = {
+  createActivity,
+  getActivities,
+  deleteActivity,
+  getStatus,
+  getActivity,
+};
