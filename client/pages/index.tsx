@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Inter } from "@next/font/google";
 import Banner from "../components/banner";
 import Features from "../components/banner/Features";
+import EventCard from "../components/events/EventCard";
+import EventsContainer from "../components/events/EventsContainer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +20,7 @@ export default function Home() {
       <main className="">
         <Banner />
         <Features />
+        <EventsContainer />
       </main>
     </>
   );

@@ -2,10 +2,15 @@ import { Alert, Snackbar } from "@mui/material";
 import axios from "axios";
 import { config } from "process";
 import React, { useRef, useState } from "react";
-import { errorType } from "../../Auth/types";
-import Button from "../../common/buttons/Button";
-import CourseCreationInputField from "./CourseCreationInputField";
-import UploadImage from "./UploadImage";
+import CourseCreationInputField from "../admin/CreateCourse/CourseCreationInputField";
+import UploadImage from "../admin/CreateCourse/UploadImage";
+import { errorType } from "../Auth/types";
+import Button from "../common/buttons/Button";
+import EventCreationInputField from "./EventCreationFormInputField";
+// import { errorType } from "../../Auth/types";
+// import Button from "../../common/buttons/Button";
+// import CourseCreationInputField from "./CourseCreationInputField";
+// import UploadImage from "./UploadImage";
 
 export default function CourseCreationForm() {
   const fromRef = useRef<HTMLFormElement>(null);
@@ -32,18 +37,7 @@ export default function CourseCreationForm() {
     if (fromRef.current) {
       const formData = new FormData(fromRef?.current);
 
-      const token = window.localStorage.getItem("token");
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const req = await axios.post(
-        "http://localhost:8000/course",
-        formData,
-        config
-      );
+      const req = await axios.post("http://localhost:8000/event", formData);
 
       const data = req.data;
 
@@ -52,9 +46,10 @@ export default function CourseCreationForm() {
           open: true,
           msg: data.error,
         });
-      } else {
-        window.location.href = "/admin";
       }
+      // else {
+      //   window.location.href = "/admin";
+      // }
 
       console.log(data);
     }
@@ -69,10 +64,10 @@ export default function CourseCreationForm() {
       className="p-6 shadow-2xl m-10 flex flex-col space-y-3"
     >
       <h1 className="text-center text-xl font-slab font-bold pb-2 text-indigo-600">
-        Crear nuevo curso
+        Crear evento
       </h1>
 
-      <CourseCreationInputField state={formData} handleChange={handleChange} />
+      <EventCreationInputField state={formData} handleChange={handleChange} />
 
       <UploadImage />
 

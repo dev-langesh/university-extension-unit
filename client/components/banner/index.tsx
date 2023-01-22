@@ -25,7 +25,7 @@ export default function Banner() {
         />
       </section>
 
-      <section className="">
+      <section className="relative -z-10">
         <img
           className=" w-72 h-60 md:w-96 md:h-72 object-cover z-10 "
           src="/images/classroom.jpg"
