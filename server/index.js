@@ -20,7 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// serving images
+// serving static files
 app.use(express.static("public"));
 
 // routes

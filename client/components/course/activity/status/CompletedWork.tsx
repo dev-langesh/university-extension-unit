@@ -31,17 +31,15 @@ export default function CompletedWork(props: any) {
         (props.work.work.reviewed ? (
           <div className="space-y-4">
             <h1 className="font-bold font-slab text-xl text-indigo-600 text-center pt-4">
-              Your Review
+              Tu reseña
             </h1>
             <p>
-              Your comment
-              <br />
               <span className="text-slate-500 text-sm">
                 {props.work.work.remarks}
               </span>
             </p>
             <p>
-              Score <br />{" "}
+              Puntaje <br />{" "}
               <span className="text-slate-500">{props.work.work.score}</span>
             </p>
           </div>

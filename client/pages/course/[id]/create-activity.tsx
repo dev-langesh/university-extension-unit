@@ -1,7 +1,7 @@
 import { Alert, Snackbar } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { errorType } from "../../../components/Auth/types";
 import Button from "../../../components/common/buttons/Button";
 
@@ -10,20 +10,22 @@ export default function CreateActivityPage() {
     open: false,
     msg: "",
   });
-  const [formData, setFormData] = useState<any>({});
+  // const [formData, setFormData] = useState<any>({});
 
   const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
-  useEffect(() => {
-    const course_id = router.query.id;
+  const formRef = useRef(null);
 
-    setFormData((prev: any) => ({
-      ...prev,
-      course_id,
-    }));
-  }, []);
+  // useEffect(() => {
+  //   const course_id = router.query.id;
+
+  //   setFormData((prev: any) => ({
+  //     ...prev,
+  //     course_id,
+  //   }));
+  // }, []);
 
   const closeError = () => {
     setError((prev) => ({ ...prev, open: false }));
@@ -33,14 +35,14 @@ export default function CreateActivityPage() {
     }, 400);
   };
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setFormData((p: any) => {
-      return {
-        ...p,
-        [e.target.name]: e.target.value,
-      };
-    });
-  }
+  // function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  //   setFormData((p: any) => {
+  //     return {
+  //       ...p,
+  //       [e.target.name]: e.target.value,
+  //     };
+  //   });
+  // }
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -53,24 +55,33 @@ export default function CreateActivityPage() {
       },
     };
 
-    const req = await axios.post(
-      "http://localhost:8000/activity",
-      formData,
-      config
-    );
+    if (formRef.current) {
+      const formData = new FormData(formRef.current);
 
-    const data = req.data;
+      const id: any = router.query.id;
 
-    if (!data.error) {
-      history.back();
+      formData.append("course_id", id);
+
+      const req = await axios.post(
+        "http://localhost:8000/activity",
+        formData,
+        config
+      );
+
+      const data = req.data;
+
+      if (!data.error) {
+        history.back();
+      }
+
+      console.log(data);
     }
-
-    console.log(data);
   }
 
   return (
     <div className="w-screen flex items-center justify-center pt-16 pb-10">
       <form
+        ref={formRef}
         onSubmit={handleSubmit}
         className="shadow-2xl p-8 space-y-3 flex flex-col justify-center w-4/5 sm:w-80"
       >
@@ -81,7 +92,6 @@ export default function CreateActivityPage() {
         <input
           type="text"
           name="title"
-          onChange={handleChange}
           placeholder="Título"
           className="border px-2 py-1 text-[15px] outline-none"
         />
@@ -95,18 +105,17 @@ export default function CreateActivityPage() {
             id="date"
             type="date"
             name="due_date"
-            onChange={handleChange}
             className="border w-full px-2 py-1 text-[15px] outline-none"
           />
         </div>
 
-        {/* <div>
+        <div>
           <label className="text-sm" htmlFor="file">
-            Documents
+            Subir material
           </label>
           <br />
-          <input id="file" type="file" />
-        </div> */}
+          <input name="material" id="file" type="file" />
+        </div>
 
         <Button type="submit" text={loading ? "Cargando..." : "Entregar"} />
 

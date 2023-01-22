@@ -24,6 +24,8 @@ const schema = mongoose.Schema({
       },
     },
   ],
+
+  material: String,
 });
 
 const model = mongoose.model("activity", schema);
