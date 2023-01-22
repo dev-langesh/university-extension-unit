@@ -1,16 +1,10 @@
 import { Alert, Snackbar } from "@mui/material";
 import axios from "axios";
-import { config } from "process";
 import React, { useRef, useState } from "react";
-import CourseCreationInputField from "../admin/CreateCourse/CourseCreationInputField";
 import UploadImage from "../admin/CreateCourse/UploadImage";
 import { errorType } from "../Auth/types";
 import Button from "../common/buttons/Button";
 import EventCreationInputField from "./EventCreationFormInputField";
-// import { errorType } from "../../Auth/types";
-// import Button from "../../common/buttons/Button";
-// import CourseCreationInputField from "./CourseCreationInputField";
-// import UploadImage from "./UploadImage";
 
 export default function CourseCreationForm() {
   const fromRef = useRef<HTMLFormElement>(null);

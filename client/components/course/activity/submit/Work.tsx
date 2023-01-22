@@ -62,7 +62,7 @@ export default function UploadWork() {
     }
 
     getSubmittedWork();
-  }, []);
+  }, [router.query]);
 
   const closeError = () => {
     setError((prev) => ({ ...prev, open: false }));
@@ -80,7 +80,7 @@ export default function UploadWork() {
     if (formRef.current) {
       formData = new FormData(formRef.current);
 
-      const activity_id = activity.activity_id;
+      const activity_id: any = router.query.id;
 
       formData.append("activity_id", activity_id);
     }

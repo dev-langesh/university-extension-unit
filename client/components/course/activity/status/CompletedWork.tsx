@@ -27,25 +27,24 @@ export default function CompletedWork(props: any) {
       <br />
       <br />
 
-      {role !== "student" &&
-        (props.work.work.reviewed ? (
-          <div className="space-y-4">
-            <h1 className="font-bold font-slab text-xl text-indigo-600 text-center pt-4">
-              Tu reseña
-            </h1>
-            <p>
-              <span className="text-slate-500 text-sm">
-                {props.work.work.remarks}
-              </span>
-            </p>
-            <p>
-              Puntaje <br />{" "}
-              <span className="text-slate-500">{props.work.work.score}</span>
-            </p>
-          </div>
-        ) : (
-          <ProvideMarks studentId={props.work.work.student_id} />
-        ))}
+      {props.work.work.reviewed ? (
+        <div className="space-y-4">
+          <h1 className="font-bold font-slab text-xl text-indigo-600 text-center pt-4">
+            Tu reseña
+          </h1>
+          <p>
+            <span className="text-slate-500 text-sm">
+              {props.work.work.remarks}
+            </span>
+          </p>
+          <p>
+            Puntaje <br />{" "}
+            <span className="text-slate-500">{props.work.work.score}</span>
+          </p>
+        </div>
+      ) : (
+        <ProvideMarks studentId={props.work.work.student_id} />
+      )}
     </div>
   );
 }

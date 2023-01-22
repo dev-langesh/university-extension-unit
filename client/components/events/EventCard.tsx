@@ -1,12 +1,6 @@
-import { IconButton } from "@mui/material";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import axios from "axios";
+import React from "react";
 
 export default function CourseCard(props: any) {
-  const [user, setUser] = useState<"admin" | "student" | "administrator">();
-
   return (
     <div className="w-72 shadow-xl m-4 p-2">
       <div className="w-full h-1/2">
