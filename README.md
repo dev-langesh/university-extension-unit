@@ -20,6 +20,9 @@ PORT=8000
 MONGO_URI=mongodb://localhost:27017
 JWT_SECRET=$2b$16$epjMdbNSpBmfDATeAwiuz.0pGwdrMb/Vr.H9ypyT1ULIRXeBx5SeG
 
+EMAIL=
+PASSWORD=
+
 ```
 
 In the `MONGO_URI` filed paste your mongodb uri.
@@ -29,6 +32,14 @@ Install the mongodb in your system locally
 or
 
 If you don't have mongodb account go and create an account in `mongodb atlas`.
+
+### Need for Email and Password
+
+This application need to send otp to user through the email provided by you.
+
+In the place of password you need to give app password not the original password.
+
+Refer this link https://support.google.com/mail/answer/185833?hl=en to generate the app password for your google account.
 
 ### Start server
 
