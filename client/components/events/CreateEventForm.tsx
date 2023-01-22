@@ -46,10 +46,9 @@ export default function CourseCreationForm() {
           open: true,
           msg: data.error,
         });
+      } else {
+        window.location.href = "/admin";
       }
-      // else {
-      //   window.location.href = "/admin";
-      // }
 
       console.log(data);
     }

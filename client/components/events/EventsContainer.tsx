@@ -19,9 +19,11 @@ export default function EventsContainer() {
 
   return (
     <section className="py-10">
-      <h1 className="text-center text-indigo-600 text-2xl font-slab font-bold">
-        Eventos
-      </h1>
+      {events.length !== 0 && (
+        <h1 className="text-center text-indigo-600 text-2xl font-slab font-bold">
+          Eventos
+        </h1>
+      )}
 
       <div className="flex flex-wrap items-center justify-center">
         {events.map((event) => {

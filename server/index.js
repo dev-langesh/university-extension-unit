@@ -8,6 +8,7 @@ const { ActivityRouter } = require("./routes/activity/activity.route");
 const { SubmitRouter } = require("./routes/submit/submit.route");
 const { Submit } = require("./models/submitions.model");
 const { EventRouter } = require("./routes/event/event.route");
+const { Event } = require("./models/events.model");
 
 const app = express();
 
@@ -34,6 +35,8 @@ app.use("/event", EventRouter);
 
 app.get("/", async (req, res) => {
   const d = await Submit.deleteMany({});
+
+  await Event.deleteMany({});
 
   console.log(d);
 
