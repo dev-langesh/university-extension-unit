@@ -97,7 +97,7 @@ export default function LoginForm() {
           ¿Has olvidado tu contraseña?
         </Link>
 
-        <Button type="submit" text={loading ? "Cargando..." : "Entregar"} />
+        <Button type="submit" text={loading ? "Cargando..." : "Entrar"} />
 
         <Footer />
 

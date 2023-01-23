@@ -64,7 +64,7 @@ export default function CourseCreationForm() {
 
       <UploadImage />
 
-      <Button type="button" handleClick={submitHandler} text="Entregar" />
+      <Button type="button" handleClick={submitHandler} text="Crear" />
 
       <Snackbar open={error.open} autoHideDuration={6000} onClose={closeError}>
         <Alert onClose={closeError} severity="error">

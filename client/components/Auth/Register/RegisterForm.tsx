@@ -95,7 +95,7 @@ export default function RegisterForm() {
 
         <FormFields handleChange={handleChange} />
 
-        <Button type="submit" text={loading ? "Cargando..." : "Entregar"} />
+        <Button type="submit" text={loading ? "Cargando..." : "Registrar"} />
 
         <Footer />
         <Snackbar
