@@ -52,7 +52,7 @@ export default function ResetPassword() {
       setLoading(true);
 
       const req = await axios.put(
-        "http://localhost:8000/auth/change-password",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/change-password`,
         state
       );
 

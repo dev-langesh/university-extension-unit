@@ -27,7 +27,10 @@ export default function SendCode({ openVerifyStep }: { openVerifyStep: any }) {
     e.preventDefault();
     setLoading(true);
 
-    const req = await axios.put("http://localhost:8000/auth/send-code", state);
+    const req = await axios.put(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/send-code`,
+      state
+    );
 
     const data = req.data;
 

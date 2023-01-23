@@ -47,7 +47,7 @@ export default function RegisterForm() {
       setLoading(true);
 
       const req = await axios.post(
-        "http://localhost:8000/auth/register",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/register`,
         state
       );
 

@@ -31,7 +31,7 @@ export default function ActivityDetails({
 
       if (activity_id) {
         const req = await axios.get(
-          `http://localhost:8000/activity/${activity_id}`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/activity/${activity_id}`,
           config
         );
 
@@ -56,7 +56,7 @@ export default function ActivityDetails({
       </p>
       <br />
       {activity.material && (
-        <a target="_blank" href={activity.material}>
+        <a rel="noreferrer" target="_blank" href={activity.material}>
           <div className="border px-4 py-2 flex items-center justify-between bg-slate-100">
             <h1>Material</h1>
           </div>

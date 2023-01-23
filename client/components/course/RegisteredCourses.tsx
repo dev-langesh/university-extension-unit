@@ -16,7 +16,7 @@ export default function RegisteredCourses() {
       };
 
       const req = await axios.get(
-        "http://localhost:8000/course/get-registered",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/course/get-registered`,
         config
       );
 

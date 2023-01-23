@@ -37,7 +37,7 @@ export default function VerifyCode() {
     setLoading(true);
 
     const req = await axios.put(
-      "http://localhost:8000/auth/verify-code",
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/verify-code`,
       state
     );
 

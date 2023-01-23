@@ -31,7 +31,10 @@ export default function CourseCreationForm() {
     if (fromRef.current) {
       const formData = new FormData(fromRef?.current);
 
-      const req = await axios.post("http://localhost:8000/event", formData);
+      const req = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/event`,
+        formData
+      );
 
       const data = req.data;
 

@@ -19,7 +19,9 @@ export default function ActivityCard({ title, date, id }: propType) {
   const dispatch = useAppDispatch();
 
   async function deleteActivity() {
-    const req = await axios.delete(`http://localhost:8000/activity/${id}`);
+    const req = await axios.delete(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/activity/${id}`
+    );
 
     const data = req.data;
 

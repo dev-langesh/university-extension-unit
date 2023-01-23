@@ -7,7 +7,9 @@ export default function EventsContainer() {
 
   useEffect(() => {
     async function getData() {
-      const req = await axios.get("http://localhost:8000/event");
+      const req = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/event`
+      );
 
       const data = req.data;
 
@@ -27,7 +29,7 @@ export default function EventsContainer() {
 
       <div className="flex flex-wrap items-center justify-center">
         {events.map((event) => {
-          return <EventCard {...event} />;
+          return <EventCard key={event.id} {...event} />;
         })}
       </div>
     </section>

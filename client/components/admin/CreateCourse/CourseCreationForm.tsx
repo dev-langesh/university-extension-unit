@@ -40,7 +40,7 @@ export default function CourseCreationForm() {
         },
       };
       const req = await axios.post(
-        "http://localhost:8000/course",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/course`,
         formData,
         config
       );

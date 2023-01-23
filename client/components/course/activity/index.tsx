@@ -13,7 +13,7 @@ export default function Activities() {
 
       if (course_id) {
         const req = await axios.get(
-          `http://localhost:8000/activity/?course_id=${course_id}`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/activity/?course_id=${course_id}`
         );
 
         const data = req.data;

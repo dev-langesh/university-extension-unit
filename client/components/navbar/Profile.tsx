@@ -16,9 +16,12 @@ export default function Profile() {
     async function getProfileDetails() {
       const token = window.localStorage.getItem("token");
 
-      const req = await axios.post("http://localhost:8000/user/profile", {
-        token,
-      });
+      const req = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/user/profile`,
+        {
+          token,
+        }
+      );
 
       const data = req.data;
 

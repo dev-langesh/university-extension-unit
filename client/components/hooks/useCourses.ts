@@ -18,7 +18,10 @@ export default function useCourses() {
         },
       };
 
-      const req = await axios.get("http://localhost:8000/course", config);
+      const req = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/course`,
+        config
+      );
 
       const data = req.data;
 

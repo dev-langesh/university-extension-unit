@@ -39,7 +39,7 @@ export default function ProvideMarks(props: any) {
       console.log(props);
 
       const req = await axios.put(
-        `http://localhost:8000/submit/?student_id=${props.studentId}&activity_id=${activity_id}&marks=${state.marks}&remarks=${state.comment}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/submit/?student_id=${props.studentId}&activity_id=${activity_id}&marks=${state.marks}&remarks=${state.comment}`
       );
 
       const data = req.data;

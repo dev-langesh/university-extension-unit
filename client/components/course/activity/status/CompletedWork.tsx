@@ -18,7 +18,7 @@ export default function CompletedWork(props: any) {
         Enviado en:{" "}
         <span className="text-slate-500">{props.work.work.submitted_at}</span>
       </p>
-      <a target="_blank" href={props.work.work.url}>
+      <a rel="noreferrer" target="_blank" href={props.work.work.url}>
         <div className="border px-4 py-2 flex items-center justify-between bg-slate-100">
           <h1>{props.work.work.file_name}</h1>
         </div>
@@ -43,7 +43,9 @@ export default function CompletedWork(props: any) {
           </p>
         </div>
       ) : (
-        <ProvideMarks studentId={props.work.work.student_id} />
+        role !== "student" && (
+          <ProvideMarks studentId={props.work.work.student_id} />
+        )
       )}
     </div>
   );

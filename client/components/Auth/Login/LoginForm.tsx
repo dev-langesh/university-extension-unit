@@ -55,7 +55,10 @@ export default function LoginForm() {
 
     setLoading(true);
 
-    const req = await axios.post("http://localhost:8000/auth/login", state);
+    const req = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login`,
+      state
+    );
 
     const data = req.data;
 

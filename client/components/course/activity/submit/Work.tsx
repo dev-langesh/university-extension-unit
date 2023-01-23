@@ -42,7 +42,7 @@ export default function UploadWork() {
       const obj = decodeToken(token);
 
       const req = await axios.get(
-        `http://localhost:8000/submit/?student_id=${obj.id}&activity_id=${activity_id}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/submit/?student_id=${obj.id}&activity_id=${activity_id}`
       );
       setLoading(false);
 
@@ -99,7 +99,7 @@ export default function UploadWork() {
 
     setLoading(true);
     const req = await axios.post(
-      "http://localhost:8000/submit",
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/submit`,
       formData,
       config
     );

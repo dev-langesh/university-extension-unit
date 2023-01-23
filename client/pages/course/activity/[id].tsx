@@ -47,7 +47,7 @@ export default function Activity() {
 
       if (activity_id) {
         const req = await axios.get(
-          `http://localhost:8000/activity/${activity_id}/status`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/activity/${activity_id}/status`,
           config
         );
 

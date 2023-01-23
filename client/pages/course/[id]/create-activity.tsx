@@ -63,7 +63,7 @@ export default function CreateActivityPage() {
       formData.append("course_id", id);
 
       const req = await axios.post(
-        "http://localhost:8000/activity",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/activity`,
         formData,
         config
       );
