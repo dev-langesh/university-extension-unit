@@ -41,6 +41,22 @@ In the place of password you need to give app password not the original password
 
 Refer this link https://support.google.com/mail/answer/185833?hl=en to generate the app password for your google account.
 
+### Changing Admin credentials
+
+Go to /server/data/adminData
+
+```js
+const adminData = {
+  name: "admin",
+  phone: "980980890",
+  email: "admin@gmail.com",
+  password: "admin@123",
+  userType: "admin",
+};
+```
+
+Don't change the userType
+
 ### Start server
 
 Run `npm start` inside the `/server` folder
