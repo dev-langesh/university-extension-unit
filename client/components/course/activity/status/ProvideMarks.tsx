@@ -43,6 +43,8 @@ export default function ProvideMarks(props: any) {
       );
 
       const data = req.data;
+
+      window.location.reload();
     }
   };
 

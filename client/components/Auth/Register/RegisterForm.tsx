@@ -91,8 +91,6 @@ export default function RegisterForm() {
           Registro
         </h1>
 
-        <RadioGroup state={state} setUserType={setUserType} />
-
         <FormFields handleChange={handleChange} />
 
         <Button type="submit" text={loading ? "Cargando..." : "Registrar"} />

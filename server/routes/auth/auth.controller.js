@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const { User } = require("../../models/user.model");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../../lib/sendMail");
+const { adminData } = require("../../data/adminData");
 
 // POST /auth/register
 async function register(req, res) {

@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema(
     email: { type: String, requried: true, unique: true },
     password: { type: String, required: true },
     userType: { type: String, required: true },
-    code: Number,
+    // code: Number,
     courses: [
       {
         type: mongoose.Schema.Types.ObjectId,

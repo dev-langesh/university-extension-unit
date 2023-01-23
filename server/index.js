@@ -9,6 +9,7 @@ const { SubmitRouter } = require("./routes/submit/submit.route");
 const { Submit } = require("./models/submitions.model");
 const { EventRouter } = require("./routes/event/event.route");
 const { Event } = require("./models/events.model");
+const { loadAdminData, del } = require("./lib/loadAdminData");
 
 const app = express();
 
@@ -16,6 +17,9 @@ require("dotenv").config();
 const PORT = process.env.PORT || 9000;
 
 connectDb();
+
+// loading admin data
+loadAdminData();
 
 app.use(cors());
 
