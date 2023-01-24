@@ -72,11 +72,11 @@ export default function VerifyCode() {
         className="shadow-2xl p-8 space-y-3 flex flex-col justify-center"
       >
         <h1 className="text-center text-xl font-bold font-slab text-indigo-600">
-          Enter Your OTP
+          Ingrese su OTP
         </h1>
 
         <p className="text-slate-500 pb-2">
-          The verification code sent to{" "}
+          El código de verificación enviado a{" "}
           {state.email ? state.email : "your email"}
         </p>
 
@@ -90,7 +90,7 @@ export default function VerifyCode() {
         />
 
         <Button
-          text={loading ? "Loading..." : "Verify Account"}
+          text={loading ? "Cargando..." : "Verificar Cuenta"}
           type="submit"
         />
 

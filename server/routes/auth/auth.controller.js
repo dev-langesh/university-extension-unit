@@ -9,13 +9,13 @@ async function register(req, res) {
   const body = req.body;
 
   if (!body.password || !body.email) {
-    return res.json({ error: "Fill all the fields" });
+    return res.json({ error: "Rellena todos los campos" });
   }
 
   try {
     const isUserExists = await User.findOne({ email: body.email });
 
-    if (isUserExists) return res.json({ error: "User already exists" });
+    if (isUserExists) return res.json({ error: "El usuario ya existe" });
 
     const hashedPass = await bcrypt.hash(body.password, 16);
 
@@ -35,7 +35,7 @@ async function register(req, res) {
     return res.json({ message: "User registered", token });
   } catch (err) {
     if (err)
-      return res.json({ error: "Invalid credentials", stack: err.stack });
+      return res.json({ error: "Credenciales no válidas", stack: err.stack });
   }
 }
 
@@ -44,13 +44,13 @@ async function login(req, res) {
   const body = req.body;
 
   if (!body.password || !body.email) {
-    return res.json({ error: "Fill all the fields" });
+    return res.json({ error: "Rellena todos los campos" });
   }
 
   try {
     const user = await User.findOne({ email: body.email });
 
-    if (!user) return res.json({ error: "User doesn't exists" });
+    if (!user) return res.json({ error: "El usuario no existe" });
 
     const correctPassword = await bcrypt.compare(body.password, user.password);
 
@@ -70,7 +70,7 @@ async function login(req, res) {
     });
   } catch (err) {
     if (err)
-      return res.json({ error: "Invalid credentials", stack: err.stack });
+      return res.json({ error: "Credenciales no válidas", stack: err.stack });
   }
 
   res.send("login");
@@ -82,7 +82,7 @@ async function sendCode(req, res) {
     const email = req.body.email;
 
     if (!email) {
-      throw new Error("Email is required");
+      throw new Error("correo electronico es requerido");
     }
 
     const code = Math.floor(Math.random() * 10000);
@@ -90,16 +90,16 @@ async function sendCode(req, res) {
     const user = await User.findOneAndUpdate({ email }, { $set: { code } });
 
     if (!user) {
-      throw new Error("Invalid email");
+      throw new Error("Email inválido");
     }
 
     await sendMail({
       to: email,
-      subject: "Password reset OTP",
-      text: `Your confirmation code is ${code}`,
+      subject: "Restablecimiento de contraseña OTP",
+      text: `Su código de confirmación es ${code}`,
     });
 
-    return res.json({ message: "Code sent successfully" });
+    return res.json({ message: "Código enviado con éxito" });
   } catch (err) {
     return res.json({ error: err.message, stack: err.stack });
   }
@@ -108,12 +108,12 @@ async function sendCode(req, res) {
 // PUT /auth/change-password
 async function changePassword(req, res) {
   try {
-    const code = req.body.code;
+    const code = req.body.code.trim();
     const password = req.body.password;
     const email = req.body.email;
 
     if (!code || !password || !email) {
-      throw new Error("Fill all the fields");
+      throw new Error("Rellena todos los campos");
     }
 
     const user = await User.findOne({ email });
@@ -121,11 +121,11 @@ async function changePassword(req, res) {
     console.log(user);
 
     if (!user) {
-      throw new Error("Invalid email");
+      throw new Error("Email inválido");
     }
 
     if (user.code != code) {
-      throw new Error("Invalid code");
+      throw new Error("Codigo invalido");
     }
 
     const hashedPass = await bcrypt.hash(password, 16);
@@ -154,7 +154,7 @@ async function verifyCode(req, res) {
     const email = req.body.email;
 
     if (!code || !email) {
-      throw new Error("Fill all the fields");
+      throw new Error("Rellena todos los campos");
     }
 
     const user = await User.findOne({ email });
@@ -162,11 +162,11 @@ async function verifyCode(req, res) {
     console.log(user);
 
     if (!user) {
-      throw new Error("Invalid email");
+      throw new Error("Email inválido");
     }
 
     if (user.code != code) {
-      throw new Error("Invalid code");
+      throw new Error("Codigo invalido");
     }
 
     const token = jwt.sign(

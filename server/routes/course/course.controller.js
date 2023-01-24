@@ -27,9 +27,9 @@ async function createCourse(req, res) {
   try {
     const { title, sub_title } = req.body;
 
-    if (req.userType === "student") throw new Error("You are  not allowed");
+    if (req.userType === "student") throw new Error("No se te permite");
 
-    if (!req.file) throw new Error("Provide course image");
+    if (!req.file) throw new Error("Proporcione la imagen del curso");
 
     const code = Math.floor(Math.random() * (10 ** 1 - 10 ** 9)) + 10 ** 9;
 
@@ -53,10 +53,10 @@ async function deleteCourse(req, res) {
     const { id } = req.params;
 
     if (!id) {
-      throw new Error("Provide course id");
+      throw new Error("Proporcione la identificación del curso");
     }
 
-    if (req.userType === "student") throw new Error("You are  not allowed");
+    if (req.userType === "student") throw new Error("No se te permite");
 
     const course = await Course.findByIdAndDelete(id);
 
@@ -77,7 +77,7 @@ async function registerInCourse(req, res) {
     console.log(course);
 
     if (!course) {
-      throw new Error("Course Not Found");
+      throw new Error("Curso no encontrado");
     }
 
     const course_id = course._id;
@@ -85,12 +85,12 @@ async function registerInCourse(req, res) {
     const student = await User.findById(student_id);
 
     if (!student) {
-      throw new Error("Student not found");
+      throw new Error("Estudiante no encontrado");
     }
 
     course.students.forEach((std) => {
       if (std.email === student.email) {
-        throw new Error("Already Registered");
+        throw new Error("Ya registrado");
       }
     });
 

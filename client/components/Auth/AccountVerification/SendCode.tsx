@@ -58,11 +58,11 @@ export default function SendCode({ openVerifyStep }: { openVerifyStep: any }) {
         className="shadow-2xl p-8 space-y-3 flex flex-col justify-center"
       >
         <h1 className="text-center text-xl font-bold font-slab text-indigo-600">
-          Enter Your Email
+          Introduce tu correo electrónico
         </h1>
 
         <p className="text-slate-500 pb-2">
-          The verification code will be sent to this mail
+          El código de verificación será enviado a este correo.
         </p>
 
         <input
@@ -73,7 +73,10 @@ export default function SendCode({ openVerifyStep }: { openVerifyStep: any }) {
           onChange={handleChange}
         />
 
-        <Button text={loading ? "Loading..." : "Send Code"} type="submit" />
+        <Button
+          text={loading ? "Cargando..." : "Enviar código"}
+          type="submit"
+        />
 
         <Snackbar
           open={error.open}

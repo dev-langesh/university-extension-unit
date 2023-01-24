@@ -11,17 +11,17 @@ export function validateRegister({ state }: validateType) {
       !state.phone ||
       !state.username
     ) {
-      reject("Fill all the fields");
+      reject("Rellena todos los campos");
     } else if (
       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(state.email)
     ) {
-      reject("Invalid Email");
+      reject("Email inválido");
     } else if (state.password.length < 6) {
-      reject("Password length is too low");
+      reject("La longitud de la contraseña es demasiado baja");
     } else if (state.password !== state.confirmPassword) {
-      reject("Password doesn't match");
+      reject("La contraseña no coincide");
     } else {
-      resolve("validation success");
+      resolve("éxito de la validación");
     }
   });
 

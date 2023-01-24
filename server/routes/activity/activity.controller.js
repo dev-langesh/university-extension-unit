@@ -6,15 +6,15 @@ async function createActivity(req, res) {
   try {
     const { title, due_date, course_id } = req.body;
 
-    if (!course_id) throw new Error("Provide course id");
+    if (!course_id) throw new Error("Proporcione la identificación del curso");
 
     const course = await Course.findById(course_id);
 
-    if (!course) throw new Error("Invalid course id");
+    if (!course) throw new Error("ID de curso no válido");
 
     const admin_id = req.id;
 
-    if (req.userType === "student") throw new Error("You are not allowed");
+    if (req.userType === "student") throw new Error("No se te permite");
 
     const activity = await Activity.create({
       course_id,
@@ -78,7 +78,7 @@ async function getStatus(req, res) {
     const data = await Activity.findById(activity_id);
 
     if (!data) {
-      throw new Error("Record not found");
+      throw new Error("Registro no encontrado");
     }
 
     const students = data.students;

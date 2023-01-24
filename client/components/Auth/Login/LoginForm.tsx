@@ -50,7 +50,7 @@ export default function LoginForm() {
     e.preventDefault();
 
     if (!state.email || !state.password) {
-      setError({ open: true, msg: "Fill All The Fields" });
+      setError({ open: true, msg: "Rellene todos los campos" });
     }
 
     setLoading(true);

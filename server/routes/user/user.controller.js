@@ -4,19 +4,19 @@ const { User } = require("../../models/user.model");
 async function getProfileDetails(req, res) {
   try {
     if (!req.body.token) {
-      throw new Error("token is missing");
+      throw new Error("Falta la ficha");
     }
 
     const decoded = jwt.verify(req.body.token, process.env.JWT_SECRET);
 
     if (!decoded) {
-      throw new Error("Invalid token");
+      throw new Error("Simbolo no valido");
     }
 
     const user = await User.findById(decoded.id);
 
     if (!user) {
-      throw new Error("User not found");
+      throw new Error("Usuario no encontrado");
     }
 
     res.json({

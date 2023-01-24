@@ -12,7 +12,7 @@ async function getSubmittedWork(req, res) {
     const work = await Submit.findOne({ student_id, activity_id });
 
     if (!work) {
-      throw new Error("Record not found");
+      throw new Error("Registro no encontrado");
     }
 
     return res.json({ work });
@@ -43,7 +43,7 @@ async function submitWork(req, res) {
     const work = await Submit.findOne({ student_id, activity_id });
 
     if (work) {
-      throw new Error("Already submitted");
+      throw new Error("Ya enviado");
     }
 
     const submission = await Submit.create(data);
@@ -63,7 +63,7 @@ async function submitWork(req, res) {
     res.json({ message: "Marked as completed", submission });
   } catch (err) {
     console.log(err);
-    if (err) res.json({ error: "Something went wrong" });
+    if (err) res.json({ error: "Sube tu trabajo" });
   }
 }
 
@@ -80,7 +80,7 @@ async function provideMarks(req, res) {
     console.log(work);
 
     if (!work) {
-      throw new Error("Record not found");
+      throw new Error("Registro no encontrado");
     }
 
     return res.json({ work });
