@@ -23,6 +23,8 @@ JWT_SECRET=$2b$16$epjMdbNSpBmfDATeAwiuz.0pGwdrMb/Vr.H9ypyT1ULIRXeBx5SeG
 EMAIL=
 PASSWORD=
 
+DEPLOY_URL=
+
 ```
 
 In the `MONGO_URI` filed paste your mongodb uri.

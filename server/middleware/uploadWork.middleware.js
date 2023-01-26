@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 
     const fileName = `${uniqueSuffix}.${ext}`;
 
-    req.url = `http://localhost:8000/work/${fileName}`;
+    req.url = `${process.env.DEPLOY_URL}/work/${fileName}`;
 
     cb(null, fileName);
   },
