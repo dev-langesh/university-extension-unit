@@ -16,29 +16,31 @@ export default function Profile() {
     async function getProfileDetails() {
       const token = window.localStorage.getItem("token");
 
-      const req = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/user/profile`,
-        {
-          token,
-        }
-      );
-
-      const data = req.data;
-
-      if (data.error) {
-        window.localStorage.clear();
-
-        window.location.reload();
-      }
-
-      if (data) {
-        dispatch(
-          setProfile({
-            email: data.email,
-            name: data.username,
-            user: data.userType,
-          })
+      if (token) {
+        const req = await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/user/profile`,
+          {
+            token,
+          }
         );
+
+        const data = req.data;
+
+        if (data.error) {
+          window.localStorage.clear();
+
+          window.location.reload();
+        }
+
+        if (data) {
+          dispatch(
+            setProfile({
+              email: data.email,
+              name: data.username,
+              user: data.userType,
+            })
+          );
+        }
       }
     }
 

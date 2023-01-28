@@ -15,17 +15,19 @@ export default function RegisteredCourses() {
         },
       };
 
-      const req = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/course/get-registered`,
-        config
-      );
+      if (token) {
+        const req = await axios.get(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/course/get-registered`,
+          config
+        );
 
-      const data = req.data;
+        const data = req.data;
 
-      console.log(data);
+        console.log(data);
 
-      if (!data.error) {
-        setCourses(data);
+        if (!data.error) {
+          setCourses(data);
+        }
       }
     }
 
