@@ -16,12 +16,15 @@ export default function SurveyCard(props: any) {
 
       <div className="flex justify-between">
         <h1 className="pb-1">{props.title}</h1>
-        <Link
-          href={`/course/${router.query.id}/survey/${props._id}`}
-          className="bg-orange-500 text-white px-1"
-        >
-          Respuestas
-        </Link>
+
+        {role !== "student" && (
+          <Link
+            href={`/course/${router.query.id}/survey/${props._id}`}
+            className="bg-orange-500 text-white px-1"
+          >
+            Respuestas
+          </Link>
+        )}
       </div>
 
       {role === "student" && <SurveyAnswerForm survey_id={props._id} />}
