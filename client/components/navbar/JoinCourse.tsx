@@ -42,7 +42,7 @@ export default function JoinCourse() {
     setLoading(true);
 
     const req = await axios.post(
-      "http://localhost:8000/course/register",
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/course/register`,
       { course_code: state },
       config
     );

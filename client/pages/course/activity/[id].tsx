@@ -73,7 +73,7 @@ export default function Activity() {
       const activity_id = router.query.id;
 
       const req = await axios.get(
-        `http://localhost:8000/submit/?student_id=${studentId}&activity_id=${activity_id}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/submit/?student_id=${studentId}&activity_id=${activity_id}`
       );
 
       const data = req.data;
