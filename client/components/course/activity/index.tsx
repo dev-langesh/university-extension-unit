@@ -47,7 +47,7 @@ export default function Activities() {
         )}
 
         {survey.map((s: any) => {
-          return <SurveyCard {...s} />;
+          return <SurveyCard key={s._id} {...s} />;
         })}
 
         {data.map((activity: any) => {
