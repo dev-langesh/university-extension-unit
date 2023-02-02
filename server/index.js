@@ -10,6 +10,7 @@ const { Submit } = require("./models/submitions.model");
 const { EventRouter } = require("./routes/event/event.route");
 const { Event } = require("./models/events.model");
 const { loadAdminData, del } = require("./lib/loadAdminData");
+const { SurveyRouter } = require("./routes/survey/survey.route");
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use("/course", CourseRouter);
 app.use("/activity", ActivityRouter);
 app.use("/submit", SubmitRouter);
 app.use("/event", EventRouter);
+app.use("/survey", SurveyRouter);
 
 app.get("/", async (req, res) => {
   res.send("server is running");

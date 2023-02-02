@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { errorType } from "../../../components/Auth/types";
 import Button from "../../../components/common/buttons/Button";
+import CreateSurveyForm from "../../../components/course/activity/survey/CreateSurveyForm";
 
 export default function CreateActivityPage() {
   const [error, setError] = useState<errorType>({
@@ -79,7 +80,7 @@ export default function CreateActivityPage() {
   }
 
   return (
-    <div className="w-screen flex items-center justify-center pt-16 pb-10">
+    <div className="w-screen flex items-center justify-center flex-col md:flex-row md:space-y-0 space-y-6 md:space-x-9 px-6 pt-16 pb-10">
       <form
         ref={formRef}
         onSubmit={handleSubmit}
@@ -129,6 +130,8 @@ export default function CreateActivityPage() {
           </Alert>
         </Snackbar>
       </form>
+
+      <CreateSurveyForm />
     </div>
   );
 }
