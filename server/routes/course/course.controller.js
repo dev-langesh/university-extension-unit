@@ -16,7 +16,11 @@ async function getParticipants(req, res) {
 
     const participants = await Course.findById(course_id).select("students");
 
-    res.json(participants);
+    const students = await User.find({
+      email: { $in: participants.students.map((p) => p.email) },
+    }).select("-password");
+
+    res.json(students);
   } catch (err) {
     if (err) res.status(400).json({ error: err.message });
   }

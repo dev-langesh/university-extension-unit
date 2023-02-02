@@ -29,7 +29,9 @@ export default function RegisterForm() {
     }, 400);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setState((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,

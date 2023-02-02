@@ -16,4 +16,8 @@ export type RegisterStateType = {
   password: string;
   confirmPassword: string;
   userType: "student" | "administrator";
+  semister: String;
+  surname: String;
+  career: String;
+  student_id: String;
 };

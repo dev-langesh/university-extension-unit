@@ -3,7 +3,15 @@ import { inputType, RegisterStateType } from "../types/index";
 export const inputs: inputType[] = [
   {
     name: "username",
-    placeholder: "Nombre de usuario",
+    placeholder: "Nombre",
+  },
+  {
+    name: "surname",
+    placeholder: "Apellido",
+  },
+  {
+    name: "student_id",
+    placeholder: "cedula",
   },
   {
     name: "phone",
@@ -12,6 +20,10 @@ export const inputs: inputType[] = [
   {
     name: "email",
     placeholder: "Email",
+  },
+  {
+    name: "career",
+    placeholder: "Carrera",
   },
   {
     name: "password",
@@ -32,4 +44,8 @@ export const initialRegisterState: RegisterStateType = {
   password: "",
   userType: "student",
   confirmPassword: "",
+  semister: "1° semestre",
+  career: "",
+  student_id: "",
+  surname: "",
 };
