@@ -1,3 +1,4 @@
+import { CleaningServices } from "@mui/icons-material";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -5,39 +6,23 @@ import React, { useEffect, useState } from "react";
 import { setEnvironmentData } from "worker_threads";
 import Button from "../../../common/buttons/Button";
 import { useUserRole } from "../../../hooks/useUserRole";
-
+import { decodeToken } from "../../../hooks/decodeToken";
+import { Bool } from "reselect/es/types";
 export default function SurveyCard(props: any) {
   const role = useUserRole();
 
   const router = useRouter();
 
-  const [answer, setAnswer] = useState<any>({});
+  const [user, setUser] = useState<string>("");
 
   useEffect(() => {
-    async function getData() {
-      const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem("token");
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
+    if (token) {
+      const decoded = decodeToken(token);
 
-      if (token) {
-        const req = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/survey/${props._id}`,
-          config
-        );
-
-        const data = req.data;
-
-        console.log(data);
-
-        setAnswer(data);
-      }
+      setUser(decoded);
     }
-
-    getData();
   }, []);
 
   return (
@@ -57,7 +42,9 @@ export default function SurveyCard(props: any) {
         )}
       </div>
 
-      {role === "student" && <SurveyAnswerForm survey_id={props._id} />}
+      {role === "student" && (
+        <SurveyAnswerForm user={user} {...props} survey_id={props._id} />
+      )}
     </div>
   );
 }
@@ -67,6 +54,19 @@ function SurveyAnswerForm(props: any) {
     id: props.survey_id,
     reply: "",
   });
+  const [answered, setAnswered] = useState<any>({});
+
+  useEffect(() => {
+    const user = props.answers.find((ans: any) => {
+      return ans.sid === props.user.id;
+    });
+
+    if (user) {
+      setAnswered(user);
+    } else {
+      setAnswered(user);
+    }
+  }, []);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setData((p: any) => ({
@@ -99,20 +99,33 @@ function SurveyAnswerForm(props: any) {
       ...p,
       reply: "",
     }));
+
+    window.location.reload();
   }
 
   return (
-    <form className="flex space-x-4" onSubmit={handleSubmit}>
-      <input
-        onChange={handleChange}
-        className="border w-full  px-2 py-1 flex-1"
-        placeholder="Reply"
-        type="text"
-        value={data.reply}
-      />
-      <div>
-        <Button text="Responder" type="submit" />
-      </div>
-    </form>
+    <div>
+      {!answered && (
+        <form className="flex space-x-4" onSubmit={handleSubmit}>
+          <input
+            onChange={handleChange}
+            className="border w-full  px-2 py-1 flex-1"
+            placeholder="Reply"
+            type="text"
+            value={data.reply}
+          />
+          <div>
+            <Button text="Responder" type="submit" />
+          </div>
+        </form>
+      )}
+
+      {answered && (
+        <div className="text-sm text-slate-500">
+          {" "}
+          Tu respuesta: <span className="text-pink-500">{answered.answer}</span>
+        </div>
+      )}
+    </div>
   );
 }
