@@ -31,6 +31,17 @@ async function getReplys(req, res) {
   res.json(replys);
 }
 
+// GET /survey/:survey_id/reply
+async function getReply(req, res) {
+  const { survey_id } = req.params;
+
+  const reply = await Survey.find({
+    _id: survey_id,
+  }).select("answers");
+
+  res.json(reply);
+}
+
 // POST /survey/reply
 async function reply(req, res) {
   const user = await User.findById(req.id);
@@ -38,6 +49,7 @@ async function reply(req, res) {
   const survey = await Survey.findByIdAndUpdate(req.body.id, {
     $push: {
       answers: {
+        sid: req.id,
         name: user.username,
         student_id: user.student_id,
         answer: req.body.reply,
@@ -48,4 +60,4 @@ async function reply(req, res) {
   res.json(survey);
 }
 
-module.exports = { createSurvey, getAllSurvey, reply, getReplys };
+module.exports = { createSurvey, getAllSurvey, reply, getReplys, getReply };

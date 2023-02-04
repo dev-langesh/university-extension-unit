@@ -6,6 +6,7 @@ const schema = mongoose.Schema({
   answers: [
     {
       name: String,
+      sid: String,
       student_id: String,
       answer: String,
     },

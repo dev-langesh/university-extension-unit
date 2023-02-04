@@ -1,7 +1,8 @@
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { setEnvironmentData } from "worker_threads";
 import Button from "../../../common/buttons/Button";
 import { useUserRole } from "../../../hooks/useUserRole";
 
@@ -9,6 +10,35 @@ export default function SurveyCard(props: any) {
   const role = useUserRole();
 
   const router = useRouter();
+
+  const [answer, setAnswer] = useState<any>({});
+
+  useEffect(() => {
+    async function getData() {
+      const token = window.localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      if (token) {
+        const req = await axios.get(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/survey/${props._id}`,
+          config
+        );
+
+        const data = req.data;
+
+        console.log(data);
+
+        setAnswer(data);
+      }
+    }
+
+    getData();
+  }, []);
 
   return (
     <div className="p-3 shadow-lg m-4 border-l-4  border-pink-500">
