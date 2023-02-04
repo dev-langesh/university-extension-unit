@@ -39,6 +39,8 @@ export default function CreateSurveyForm() {
     );
 
     console.log(req.data);
+
+    history.back();
   }
 
   return (
@@ -58,6 +60,7 @@ export default function CreateSurveyForm() {
         id=""
         cols={30}
         rows={5}
+        value={data.title}
       ></textarea>
       <Button type="submit" text={"Entregar"} />
     </form>
