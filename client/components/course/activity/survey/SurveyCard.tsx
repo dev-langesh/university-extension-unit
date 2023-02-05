@@ -38,14 +38,14 @@ export default function SurveyCard(props: any) {
       <div className="flex justify-between">
         <p className="text-slate-500 text-sm">{props.title}</p>
 
-        {
+        {role !== "student" && (
           <Link
             href={`/course/${router.query.id}/survey/${props._id}`}
             className="bg-orange-500 text-white px-1"
           >
             Respuestas
           </Link>
-        }
+        )}
       </div>
 
       {role === "student" && !answered && (
@@ -55,6 +55,8 @@ export default function SurveyCard(props: any) {
           survey_id={props._id}
         />
       )}
+
+      {answered && <p>Ya respondió</p>}
     </div>
   );
 }
