@@ -42,7 +42,7 @@ export default function Activities() {
   return (
     <div className="flex h-full items-center justify-center flex-col">
       <section className="w-full h-full md:w-[600px]">
-        {data.length === 0 && (
+        {data.length === 0 && survey.length === 0 && (
           <h1 className="text-slate-500 text-center pt-10">Sin actividades</h1>
         )}
 

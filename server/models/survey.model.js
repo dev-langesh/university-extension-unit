@@ -13,8 +13,7 @@ const schema = mongoose.Schema({
       name: String,
       sid: String,
       student_id: String,
-      qid: String,
-      answer: String,
+      replies: [{}],
     },
   ],
 });

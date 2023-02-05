@@ -1,9 +1,11 @@
+import { CleaningServices } from "@mui/icons-material";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { setEnvironmentData } from "worker_threads";
 import Button from "../../../common/buttons/Button";
+import { decodeToken } from "../../../hooks/decodeToken";
 import { useUserRole } from "../../../hooks/useUserRole";
 
 export default function SurveyCard(props: any) {
@@ -11,53 +13,48 @@ export default function SurveyCard(props: any) {
 
   const router = useRouter();
 
-  const [answer, setAnswer] = useState<any>({});
+  const [answered, setAnswered] = useState<Boolean>(false);
 
   useEffect(() => {
-    async function getData() {
-      const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem("token");
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
+    if (token) {
+      const decoded = decodeToken(token);
 
       if (token) {
-        const req = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/survey/${props._id}`,
-          config
-        );
+        const isAnswered = props.answers.find((a: any) => {
+          return a.sid == decoded.id;
+        });
 
-        const data = req.data;
-
-        console.log(data);
-
-        setAnswer(data);
+        if (isAnswered) {
+          setAnswered(true);
+        }
       }
     }
-
-    getData();
   }, []);
 
   return (
     <div className="p-3 shadow-lg m-4 border-l-4  border-pink-500">
-      <p className="text-slate-500 text-sm">Encuesta</p>
-
       <div className="flex justify-between">
-        <h1 className="pb-1">{props.title}</h1>
+        <p className="text-slate-500 text-sm">{props.title}</p>
 
-        {role !== "student" && (
+        {
           <Link
             href={`/course/${router.query.id}/survey/${props._id}`}
             className="bg-orange-500 text-white px-1"
           >
             Respuestas
           </Link>
-        )}
+        }
       </div>
 
-      {role === "student" && <SurveyAnswerForm survey_id={props._id} />}
+      {role === "student" && !answered && (
+        <SurveyAnswerForm
+          setAnswered={setAnswered}
+          {...props}
+          survey_id={props._id}
+        />
+      )}
     </div>
   );
 }
@@ -65,18 +62,25 @@ export default function SurveyCard(props: any) {
 function SurveyAnswerForm(props: any) {
   const [data, setData] = useState<any>({
     id: props.survey_id,
-    reply: "",
+    replies: [],
   });
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  console.log(props);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>, qid: string) {
     setData((p: any) => ({
       ...p,
-      reply: e.target.value,
+      replies: {
+        ...p.replies,
+        [e.target.name]: e.target.value,
+      },
     }));
   }
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+
+    console.log(data);
 
     const token = window.localStorage.getItem("token");
 
@@ -99,17 +103,29 @@ function SurveyAnswerForm(props: any) {
       ...p,
       reply: "",
     }));
+
+    props.setAnswered(true);
   }
 
   return (
-    <form className="flex space-x-4" onSubmit={handleSubmit}>
-      <input
-        onChange={handleChange}
-        className="border w-full  px-2 py-1 flex-1"
-        placeholder="Reply"
-        type="text"
-        value={data.reply}
-      />
+    <form className="flex space-x-4 items-end" onSubmit={handleSubmit}>
+      <div className="flex-1 space-y-3">
+        {props.questions.map((question: any, i: number) => {
+          return (
+            <div className="">
+              <p className="text-sm">{question.question_text}</p>
+              <input
+                onChange={(e) => handleChange(e, question._id)}
+                className="border w-full  px-2 py-1 flex-1"
+                placeholder="Reply"
+                type="text"
+                name={question._id}
+                value={data.reply}
+              />
+            </div>
+          );
+        })}
+      </div>
       <div>
         <Button text="Responder" type="submit" />
       </div>

@@ -21,9 +21,33 @@ async function getAllSurvey(req, res) {
 async function getReplys(req, res) {
   const { survey_id } = req.params;
 
-  const replys = await Survey.findById(survey_id).select("answers");
+  const replies = await Survey.findById(survey_id).lean();
 
-  res.json(replys);
+  const data = replies.answers.map((reply) => {
+    return {
+      ...reply,
+      replies: reply.replies.map((r) => {
+        const qids = Object.keys(r);
+
+        let data = [];
+
+        for (let qid of qids) {
+          const question = replies.questions.find((q) => {
+            return q._id == qid;
+          });
+
+          data.push({
+            question: question.question_text,
+            answer: r[qid],
+          });
+        }
+
+        return data;
+      }),
+    };
+  });
+
+  res.json(data);
 }
 
 // GET /survey/:survey_id/reply
@@ -32,7 +56,7 @@ async function getReply(req, res) {
 
   const reply = await Survey.find({
     _id: survey_id,
-  }).select("answers");
+  });
 
   res.json(reply);
 }
@@ -41,13 +65,16 @@ async function getReply(req, res) {
 async function reply(req, res) {
   const user = await User.findById(req.id);
 
+  console.log(req.body);
+  console.log(user);
+
   const survey = await Survey.findByIdAndUpdate(req.body.id, {
     $push: {
       answers: {
         sid: req.id,
         name: user.username,
         student_id: user.student_id,
-        answer: req.body.reply,
+        replies: req.body.replies,
       },
     },
   });
