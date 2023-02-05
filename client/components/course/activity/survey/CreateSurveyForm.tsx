@@ -2,12 +2,21 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Button from "../../../common/buttons/Button";
+import AddIcon from "@mui/icons-material/Add";
+import { IconButton } from "@mui/material";
+
+const initialState = {
+  title: "",
+  questions: [
+    {
+      question_text: "",
+    },
+  ],
+  course_id: "",
+};
 
 export default function CreateSurveyForm() {
-  const [data, setData] = useState({
-    title: "",
-    course_id: "",
-  });
+  const [data, setData] = useState(initialState);
 
   const router = useRouter();
 
@@ -20,13 +29,35 @@ export default function CreateSurveyForm() {
     }
   }, [router.query]);
 
-  function changeHandler(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  function changeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setData((p: any) => {
       return {
         ...p,
         title: e.target.value,
       };
     });
+  }
+
+  function addQuestion() {
+    setData((p: any) => {
+      return {
+        ...p,
+        questions: [
+          ...p.questions,
+          {
+            question_text: "",
+          },
+        ],
+      };
+    });
+  }
+
+  function updateQuestion(e: React.ChangeEvent<HTMLInputElement>, i: any) {
+    const copy = JSON.parse(JSON.stringify(data));
+
+    copy.questions[i].question_text = e.target.value;
+
+    setData(copy);
   }
 
   async function submitHandler(e: React.SyntheticEvent) {
@@ -39,6 +70,8 @@ export default function CreateSurveyForm() {
     );
 
     console.log(req.data);
+
+    setData(initialState);
   }
 
   return (
@@ -50,15 +83,37 @@ export default function CreateSurveyForm() {
         Crear encuesta
       </h1>
 
-      <textarea
+      <input
         onChange={changeHandler}
         name="title"
         placeholder="Título"
         className="border p-2 outline-none"
         id=""
-        cols={30}
-        rows={5}
-      ></textarea>
+        value={data.title}
+      ></input>
+
+      <h2>Preguntas</h2>
+
+      <div className="space-y-2">
+        {data.questions.map((question: any, i) => {
+          return (
+            <div className="flex">
+              <input
+                onChange={(e) => updateQuestion(e, i)}
+                type="text"
+                className="border p-2 outline-none flex-1"
+                placeholder={`Pregunta ${i + 1}`}
+                value={data.questions[i].question_text}
+              />
+              {i === data.questions.length - 1 && (
+                <IconButton onClick={addQuestion}>
+                  <AddIcon />
+                </IconButton>
+              )}
+            </div>
+          );
+        })}
+      </div>
       <Button type="submit" text={"Entregar"} />
     </form>
   );

@@ -3,12 +3,7 @@ const { User } = require("../../models/user.model");
 
 // POST /survey
 async function createSurvey(req, res) {
-  const { course_id, title } = req.body;
-
-  const survey = await Survey.create({
-    course_id,
-    title,
-  });
+  const survey = await Survey.create(req.body);
 
   res.json(survey);
 }
