@@ -72,6 +72,8 @@ export default function CreateSurveyForm() {
     console.log(req.data);
 
     setData(initialState);
+
+    history.back();
   }
 
   return (

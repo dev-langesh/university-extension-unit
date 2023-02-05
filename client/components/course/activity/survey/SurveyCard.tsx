@@ -1,9 +1,7 @@
-import { CleaningServices } from "@mui/icons-material";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { setEnvironmentData } from "worker_threads";
 import Button from "../../../common/buttons/Button";
 import { decodeToken } from "../../../hooks/decodeToken";
 import { useUserRole } from "../../../hooks/useUserRole";
@@ -66,6 +64,19 @@ function SurveyAnswerForm(props: any) {
     id: props.survey_id,
     replies: [],
   });
+  const [answered, setAnswered] = useState<any>({});
+
+  useEffect(() => {
+    const user = props.answers.find((ans: any) => {
+      return ans.sid === props.user.id;
+    });
+
+    if (user) {
+      setAnswered(user);
+    } else {
+      setAnswered(user);
+    }
+  }, []);
 
   console.log(props);
 
