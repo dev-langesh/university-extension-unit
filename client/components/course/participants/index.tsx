@@ -1,10 +1,15 @@
+import { Button } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useUserRole } from "../../hooks/useUserRole";
 
 export default function Participant() {
   const router = useRouter();
   const [participants, setParticipants] = useState<any>([]);
+  const [genFile, setGenFile] = useState<Boolean>(false);
+
+  const role = useUserRole();
 
   useEffect(() => {
     const id = router.query.id;
@@ -28,11 +33,34 @@ export default function Participant() {
     }
   }, [router.query]);
 
+  async function generateFile(e: any) {
+    const req = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/user/student-details`
+    );
+
+    setGenFile(true);
+  }
+
   return (
-    <section className="h-full flex flex-wrap items-center justify-center">
-      {participants.map((p: any) => {
-        return <ParticipantCard {...p} key={p._id} />;
-      })}
+    <section className="w-full h-full">
+      {role !== "student" &&
+        (genFile ? (
+          <a
+            href={`${process.env.NEXT_PUBLIC_SERVER_URL}/studentDetails/student-details.xlsx`}
+          >
+            <Button sx={{ marginLeft: "10px" }}>Download</Button>
+          </a>
+        ) : (
+          <Button onClick={generateFile} sx={{ marginLeft: "10px" }}>
+            Generate File
+          </Button>
+        ))}
+
+      <section className="h-full flex flex-wrap items-center justify-center">
+        {participants.map((p: any) => {
+          return <ParticipantCard {...p} key={p._id} />;
+        })}
+      </section>
     </section>
   );
 }

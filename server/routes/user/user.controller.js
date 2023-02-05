@@ -32,6 +32,7 @@ async function getProfileDetails(req, res) {
   }
 }
 
+// GET /user/student-details
 async function getDetailsInExcel(req, res) {
   // Create a new instance of a Workbook class
   var wb = new xl.Workbook();
@@ -51,7 +52,15 @@ async function getDetailsInExcel(req, res) {
 
   const studentDetails = await User.find({ userType: "student" });
 
-  const columns = ["Name", "ID", "Email"];
+  const columns = [
+    "Nombre",
+    "Apellido",
+    "Cedula",
+    "Email",
+    "Telefono",
+    "Carrera",
+    "Semestre",
+  ];
 
   columns.forEach((val, i) => {
     ws.cell(1, i + 1)
@@ -63,15 +72,22 @@ async function getDetailsInExcel(req, res) {
     const studentCol = [];
     studentCol.push(
       student.username,
+      student.surname,
       student.student_id,
       student.email,
+      student.phone,
+      student.career,
       student.career
     );
 
     let c_no = 1;
 
     studentCol.forEach((val) => {
-      ws.cell(r_no + 2, c_no).string(val);
+      if (typeof val === "number") {
+        ws.cell(r_no + 2, c_no).number(val);
+      } else {
+        ws.cell(r_no + 2, c_no).string(val);
+      }
       c_no++;
     });
   });
