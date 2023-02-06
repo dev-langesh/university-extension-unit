@@ -9,11 +9,14 @@ const initialState = {
   title: "",
   questions: [
     {
+      id: 1,
       question_text: "",
     },
   ],
   course_id: "",
 };
+
+let id = 2;
 
 export default function CreateSurveyForm() {
   const [data, setData] = useState(initialState);
@@ -45,6 +48,7 @@ export default function CreateSurveyForm() {
         questions: [
           ...p.questions,
           {
+            id: id++,
             question_text: "",
           },
         ],
@@ -99,7 +103,7 @@ export default function CreateSurveyForm() {
       <div className="space-y-2">
         {data.questions.map((question: any, i) => {
           return (
-            <div className="flex">
+            <div key={question.id} className="flex">
               <input
                 onChange={(e) => updateQuestion(e, i)}
                 type="text"

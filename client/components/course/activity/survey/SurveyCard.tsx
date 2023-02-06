@@ -125,7 +125,7 @@ function SurveyAnswerForm(props: any) {
       <div className="flex-1 space-y-3">
         {props.questions.map((question: any, i: number) => {
           return (
-            <div className="">
+            <div key={question._id} className="">
               <p className="text-sm">{question.question_text}</p>
               <input
                 onChange={(e) => handleChange(e, question._id)}

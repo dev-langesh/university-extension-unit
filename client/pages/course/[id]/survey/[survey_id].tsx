@@ -40,9 +40,8 @@ function ReplyCard(props: any) {
       <div className="space-y-2">
         {props.replies[0] &&
           props.replies[0].map((reply: any) => {
-            console.log(reply);
             return (
-              <div>
+              <div key={reply._id}>
                 <h1>{reply.question}</h1>
                 <p className="text-sm">{reply.answer}</p>
               </div>
