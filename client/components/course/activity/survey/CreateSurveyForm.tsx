@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Button from "../../../common/buttons/Button";
 import AddIcon from "@mui/icons-material/Add";
 import { IconButton } from "@mui/material";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const initialState = {
   title: "",
@@ -52,6 +53,19 @@ export default function CreateSurveyForm() {
             question_text: "",
           },
         ],
+      };
+    });
+  }
+
+  function removeQuestion(id: any) {
+    const questions = data.questions.filter((question) => {
+      return question.id !== id;
+    });
+
+    setData((p: any) => {
+      return {
+        ...p,
+        questions,
       };
     });
   }
@@ -112,9 +126,16 @@ export default function CreateSurveyForm() {
                 value={data.questions[i].question_text}
               />
               {i === data.questions.length - 1 && (
-                <IconButton onClick={addQuestion}>
-                  <AddIcon />
-                </IconButton>
+                <>
+                  <IconButton onClick={addQuestion}>
+                    <AddIcon />
+                  </IconButton>
+                  {i !== 0 && (
+                    <IconButton onClick={() => removeQuestion(question.id)}>
+                      <RemoveIcon />
+                    </IconButton>
+                  )}
+                </>
               )}
             </div>
           );

@@ -8,6 +8,7 @@ import { useUserRole } from "../../../hooks/useUserRole";
 
 export default function SurveyCard(props: any) {
   const role = useUserRole();
+  const [uid, setUid] = useState<string>("");
 
   const router = useRouter();
 
@@ -18,6 +19,8 @@ export default function SurveyCard(props: any) {
 
     if (token) {
       const decoded = decodeToken(token);
+
+      setUid(decoded.id);
 
       if (token) {
         const isAnswered = props.answers.find((a: any) => {
@@ -64,19 +67,6 @@ function SurveyAnswerForm(props: any) {
     id: props.survey_id,
     replies: [],
   });
-  const [answered, setAnswered] = useState<any>({});
-
-  useEffect(() => {
-    const user = props.answers.find((ans: any) => {
-      return ans.sid === props.user.id;
-    });
-
-    if (user) {
-      setAnswered(user);
-    } else {
-      setAnswered(user);
-    }
-  }, []);
 
   console.log(props);
 
