@@ -42,30 +42,51 @@ export default function Participant() {
   }
 
   return (
-    <section className="w-full h-full">
-      {role !== "student" &&
-        (genFile ? (
-          <a
-            href={`${process.env.NEXT_PUBLIC_SERVER_URL}/studentDetails/student-details.xlsx`}
-          >
-            <Button sx={{ marginLeft: "10px" }}>Download</Button>
-          </a>
-        ) : (
-          <Button onClick={generateFile} sx={{ marginLeft: "10px" }}>
-            Generate File
-          </Button>
-        ))}
+    <section className="w-full h-full p-6">
+      <table className="table table-auto w-full border border-collapse">
+        <tr className="border text-white bg-blue-500">
+          <th className="border p-2">Nombre</th>
+          <th className="border p-2">cedula</th>
+          <th className="border p-2">Email</th>
+          <th className="border p-2">Semistre</th>
+          <th className="border p-2">Carrera</th>
+        </tr>
 
-      <section className="h-full flex flex-wrap items-center justify-center">
         {participants.map((p: any) => {
-          return <ParticipantCard {...p} key={p._id} />;
+          return <ParticipantRecord {...p} key={p._id} />;
         })}
-      </section>
+      </table>
+
+      <div className="flex items-end justify-end">
+        {role !== "student" &&
+          (genFile ? (
+            <a
+              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/studentDetails/student-details.xlsx`}
+            >
+              <Button
+                variant="outlined"
+                color="primary"
+                sx={{ margin: "10px" }}
+              >
+                Download
+              </Button>
+            </a>
+          ) : (
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={generateFile}
+              sx={{ margin: "10px" }}
+            >
+              Generate File
+            </Button>
+          ))}
+      </div>
     </section>
   );
 }
 
-function ParticipantCard({
+function ParticipantRecord({
   email,
   username,
   student_id,
@@ -73,27 +94,12 @@ function ParticipantCard({
   semister,
 }: any) {
   return (
-    <div className="shadow-lg p-4 border  m-3 rounded space-y-2 w-52">
-      <div>
-        <h1 className="font-bold text-sm text-gray-700">Nombre Apellido</h1>
-        <p className="text-slate-500">{username}</p>
-      </div>
-      <div>
-        <h1 className="font-bold text-sm text-gray-700">Cedula</h1>
-        <p className="text-slate-500">{student_id}</p>
-      </div>
-      <div>
-        <h1 className="font-bold text-sm text-gray-700">Carrera</h1>
-        <p className="text-slate-500">{career}</p>
-      </div>
-      <div>
-        <h1 className="font-bold text-sm text-gray-700">Semestre</h1>
-        <p className="text-slate-500">{semister}</p>
-      </div>
-      <div>
-        <h1 className="font-bold text-sm text-gray-700">Email</h1>
-        <p className="text-slate-500">{email}</p>
-      </div>
-    </div>
+    <tr className="border even:bg-slate-100 ">
+      <td className="border p-2">{username}</td>
+      <td className="border p-2">{student_id}</td>
+      <td className="border p-2">{email}</td>
+      <td className="border p-2">{career}</td>
+      <td className="border p-2">{semister}</td>
+    </tr>
   );
 }
