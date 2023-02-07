@@ -7,7 +7,7 @@ import { useUserRole } from "../../hooks/useUserRole";
 export default function Participant() {
   const router = useRouter();
   const [participants, setParticipants] = useState<any>([]);
-  const [genFile, setGenFile] = useState<Boolean>(false);
+  const [genFile, setGenFile] = useState<String>("");
 
   const role = useUserRole();
 
@@ -35,10 +35,10 @@ export default function Participant() {
 
   async function generateFile(e: any) {
     const req = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/user/student-details`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/user/student-details/${router.query.id}`
     );
 
-    setGenFile(true);
+    setGenFile(req.data.filename);
   }
 
   return (
@@ -61,7 +61,7 @@ export default function Participant() {
         {role !== "student" &&
           (genFile ? (
             <a
-              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/studentDetails/student-details.xlsx`}
+              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/studentDetails/${genFile}`}
             >
               <Button
                 variant="outlined"

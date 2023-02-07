@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const xl = require("excel4node");
 const fs = require("node:fs");
 const { User } = require("../../models/user.model");
+const { Course } = require("../../models/course.model");
 const path = require("node:path");
 
 async function getProfileDetails(req, res) {
@@ -34,12 +35,15 @@ async function getProfileDetails(req, res) {
 
 // GET /user/student-details
 async function getDetailsInExcel(req, res) {
+  const { course_id } = req.params;
+
+  const course = await Course.findById(course_id);
+
   // Create a new instance of a Workbook class
   var wb = new xl.Workbook();
 
   // Add Worksheets to the workbook
   var ws = wb.addWorksheet("Sheet 1");
-  var ws2 = wb.addWorksheet("Sheet 2");
 
   // Create a reusable style
   var style = wb.createStyle({
@@ -50,7 +54,11 @@ async function getDetailsInExcel(req, res) {
     numberFormat: "$#,##0.00; ($#,##0.00); -",
   });
 
-  const studentDetails = await User.find({ userType: "student" });
+  const participants = course.students;
+
+  const studentDetails = await User.find({
+    email: { $in: participants.map((p) => p.email) },
+  }).select("-password");
 
   const columns = [
     "Nombre",
@@ -98,7 +106,7 @@ async function getDetailsInExcel(req, res) {
     "..",
     "public",
     "studentDetails",
-    "student-details.xlsx"
+    `${course.title}.xlsx`
   );
 
   const isExists = fs.existsSync(filePath);
@@ -109,7 +117,7 @@ async function getDetailsInExcel(req, res) {
 
   wb.write(filePath);
 
-  res.json({ success: "true" });
+  res.json({ success: "true", filename: `${course.title}.xlsx` });
 }
 
 module.exports = { getProfileDetails, getDetailsInExcel };
