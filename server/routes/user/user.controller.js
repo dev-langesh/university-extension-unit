@@ -85,7 +85,7 @@ async function getDetailsInExcel(req, res) {
       student.email,
       student.phone,
       student.career,
-      student.career
+      student.semister
     );
 
     let c_no = 1;
