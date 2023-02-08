@@ -9,8 +9,8 @@ export default function Navbar() {
   const user = useContext(AuthContext);
 
   return (
-    <header className="p-4 flex items-center justify-end sm:justify-between bg-gradient-to-tr from-blue-500 to-indigo-500 text-white">
-      <h1 className="font-slab font-bold md:text-xl hidden sm:block">
+    <header className="p-2 md:p-4 space-y-2 md:space-y-0 flex flex-col md:flex-row items-center justify-end sm:justify-between bg-gradient-to-tr from-blue-500 to-indigo-500 text-white">
+      <h1 className="font-slab font-bold md:text-xl">
         <Link href="/">Unidad de extensión universitaria</Link>
       </h1>
       <nav className="space-x-5">
