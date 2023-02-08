@@ -1,7 +1,9 @@
 import axios from "axios";
+import Link from "next/link";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../src/app/hooks";
 import {
+  closeProfile,
   getProfile,
   reset,
   setProfile,
@@ -63,6 +65,17 @@ export default function Profile() {
     >
       <h1>{profile.name}</h1>
       <p className="text-slate-600">{profile.email}</p>
+
+      <div>
+        <Link href="/admin/add-admin">
+          <span
+            onClick={() => dispatch(closeProfile())}
+            className="text-blue-500 hover:underline"
+          >
+            Agregar administrador
+          </span>
+        </Link>
+      </div>
 
       <Button handleClick={logout} text="cerrar sesión" type="button" />
     </div>

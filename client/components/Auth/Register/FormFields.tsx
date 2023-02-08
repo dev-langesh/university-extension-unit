@@ -1,16 +1,27 @@
-import React from "react";
-import { inputs } from "./inputs";
+import React, { useEffect, useState } from "react";
+import { adminInputs, inputs } from "./inputs";
 
 type propType = {
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
+  type: any;
 };
 
-export default function FormFields({ handleChange }: propType) {
+export default function FormFields({ handleChange, type }: propType) {
+  const [state, setState] = useState<any>([]);
+
+  useEffect(() => {
+    if (type === "admin") {
+      setState(adminInputs);
+    } else {
+      setState(inputs);
+    }
+  }, []);
+
   return (
     <>
-      {inputs.map((inp, i) => {
+      {state.map((inp: any, i: any) => {
         if (inp.name === "career") {
           return (
             <>

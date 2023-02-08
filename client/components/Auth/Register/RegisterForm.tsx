@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../common/buttons/Button";
-import { initialRegisterState } from "./inputs";
+import {
+  adminInputs,
+  adminRegisterationData,
+  initialRegisterState,
+} from "./inputs";
 import { Alert, Snackbar } from "@mui/material";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -10,9 +14,10 @@ import RadioGroup from "./RadioGroup";
 import FormFields from "./FormFields";
 import Footer from "./Footer";
 import Link from "next/link";
+import { CleaningServices } from "@mui/icons-material";
 
-export default function RegisterForm() {
-  const [state, setState] = useState<RegisterStateType>(initialRegisterState);
+export default function RegisterForm({ type }: { type: String }) {
+  const [state, setState] = useState<any>(initialRegisterState);
   const [error, setError] = useState<errorType>({
     open: false,
     msg: "",
@@ -32,7 +37,7 @@ export default function RegisterForm() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setState((prev) => ({
+    setState((prev: any) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -76,12 +81,13 @@ export default function RegisterForm() {
     }
   };
 
-  function setUserType(e: any) {
-    setState((prev) => ({
-      ...prev,
-      userType: e.target.value,
-    }));
-  }
+  useEffect(() => {
+    if (type === "admin") {
+      setState(adminRegisterationData);
+    } else {
+      setState(initialRegisterState);
+    }
+  }, [type]);
 
   return (
     <div className="w-screen flex items-center justify-center pt-16 pb-10">
@@ -93,7 +99,7 @@ export default function RegisterForm() {
           Registro
         </h1>
 
-        <FormFields handleChange={handleChange} />
+        <FormFields type={type} handleChange={handleChange} />
 
         <Button type="submit" text={loading ? "Cargando..." : "Registrar"} />
 
