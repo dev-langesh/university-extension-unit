@@ -81,7 +81,7 @@ export const initialRegisterState: RegisterStateType = {
   surname: "",
 };
 
-export const adminRegisterationData: AdminRegisterState = {
+export const adminRegisterationData: AdminRegisterStateType = {
   username: "",
   phone: 0,
   email: "",

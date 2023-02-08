@@ -19,4 +19,11 @@ async function getEvents(req, res) {
   res.json({ events });
 }
 
-module.exports = { createEvent, getEvents };
+// DELETE /event
+async function deleteEvent(req, res) {
+  await Event.findByIdAndDelete(req.params.id);
+
+  return res.json({});
+}
+
+module.exports = { createEvent, getEvents, deleteEvent };

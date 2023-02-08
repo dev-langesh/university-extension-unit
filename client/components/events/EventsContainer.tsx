@@ -29,7 +29,7 @@ export default function EventsContainer() {
 
       <div className="flex flex-wrap items-center justify-center">
         {events.map((event) => {
-          return <EventCard key={event.id} {...event} />;
+          return <EventCard key={event._id} {...event} />;
         })}
       </div>
     </section>
