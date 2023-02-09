@@ -45,7 +45,7 @@ export default function CourseCard({
     };
 
     const req = await axios.delete(
-      `http://localhost:8000/course/${id}`,
+      `${process.env.SERVER_URL}/course/${id}`,
       config
     );
 
