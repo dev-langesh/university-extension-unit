@@ -9,6 +9,8 @@ export default function CourseCard(props: any) {
 
   const user = useUserRole();
 
+  console.log(user);
+
   async function deleteEvent() {
     const req = await axios.delete(`http://localhost:8000/event/${props._id}`);
 
@@ -22,7 +24,7 @@ export default function CourseCard(props: any) {
       {openDelete && (
         <section className="flex items-center justify-center absolute top-0 left-0 bg-black/20 w-screen h-screen">
           <section className="bg-white p-4 rounded shadow-lg text-center space-y-4">
-            <p>¿Quieres eliminar el curso?</p>
+            <p>¿Quieres eliminar el evento?</p>
             <div className="space-x-5">
               <Button onClick={() => setOpenDelete(false)} variant="outlined">
                 Cancelar
@@ -46,7 +48,7 @@ export default function CourseCard(props: any) {
         <h1 className="font-slab text-indigo-600  font-bold">{props.name}</h1>
         <h3 className="text-sm text-slate-600">{props.desc}</h3>
 
-        {user !== "student" && (
+        {user === "admin" && (
           <IconButton
             onClick={() => {
               setOpenDelete(true);

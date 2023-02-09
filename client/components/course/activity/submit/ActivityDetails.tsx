@@ -58,7 +58,7 @@ export default function ActivityDetails({
       {activity.material && (
         <a rel="noreferrer" target="_blank" href={activity.material}>
           <div className="border px-4 py-2 flex items-center justify-between bg-slate-100">
-            <h1>Material</h1>
+            <h1>{activity.material_name}</h1>
           </div>
         </a>
       )}

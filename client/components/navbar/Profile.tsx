@@ -9,10 +9,13 @@ import {
   setProfile,
 } from "../../src/features/profile/profileSlice";
 import Button from "../common/buttons/Button";
+import { useUserRole } from "../hooks/useUserRole";
 
 export default function Profile() {
   const profile = useAppSelector(getProfile);
   const dispatch = useAppDispatch();
+
+  const user = useUserRole();
 
   useEffect(() => {
     async function getProfileDetails() {
@@ -67,14 +70,16 @@ export default function Profile() {
       <p className="text-slate-600">{profile.email}</p>
 
       <div>
-        <Link href="/admin/add-admin">
-          <span
-            onClick={() => dispatch(closeProfile())}
-            className="text-blue-500 hover:underline"
-          >
-            Agregar administrador
-          </span>
-        </Link>
+        {(user === "admin" || user === "administrator") && (
+          <Link href="/admin/add-admin">
+            <span
+              onClick={() => dispatch(closeProfile())}
+              className="text-blue-500 hover:underline"
+            >
+              Agregar administrador
+            </span>
+          </Link>
+        )}
       </div>
 
       <Button handleClick={logout} text="cerrar sesión" type="button" />

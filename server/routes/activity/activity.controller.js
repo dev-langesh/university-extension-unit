@@ -6,6 +6,8 @@ async function createActivity(req, res) {
   try {
     const { title, due_date, course_id } = req.body;
 
+    console.log(req.file);
+
     if (!course_id) throw new Error("Proporcione la identificación del curso");
 
     const course = await Course.findById(course_id);
@@ -23,6 +25,7 @@ async function createActivity(req, res) {
       due_date,
       students: course.students,
       material: req.url,
+      material_name: req.file.originalname,
     });
 
     res.json({ message: "Activity created", activity });

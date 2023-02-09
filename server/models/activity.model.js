@@ -27,6 +27,7 @@ const schema = mongoose.Schema(
     ],
 
     material: String,
+    material_name: String,
   },
   {
     collection: "activity",
