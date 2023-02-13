@@ -3,8 +3,9 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Button from "../../../common/buttons/Button";
 import AddIcon from "@mui/icons-material/Add";
-import { IconButton } from "@mui/material";
+import { Alert, IconButton, Snackbar } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { errorType } from "../../../Auth/types";
 
 const initialState = {
   title: "",
@@ -21,6 +22,10 @@ let id = 2;
 
 export default function CreateSurveyForm() {
   const [data, setData] = useState(initialState);
+  const [error, setError] = useState<errorType>({
+    open: false,
+    msg: "",
+  });
 
   const router = useRouter();
 
@@ -70,6 +75,14 @@ export default function CreateSurveyForm() {
     });
   }
 
+  const closeError = () => {
+    setError((prev) => ({ ...prev, open: false }));
+
+    setTimeout(() => {
+      setError({ open: false, msg: "" });
+    }, 400);
+  };
+
   function updateQuestion(e: React.ChangeEvent<HTMLInputElement>, i: any) {
     const copy = JSON.parse(JSON.stringify(data));
 
@@ -81,17 +94,26 @@ export default function CreateSurveyForm() {
   async function submitHandler(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    console.log(data);
-    const req = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/survey`,
-      data
-    );
+    if (!data.questions[0].question_text || !data.title) {
+      setError(() => {
+        return {
+          open: true,
+          msg: "Rellene todos los campos",
+        };
+      });
+    } else {
+      console.log(data);
+      const req = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/survey`,
+        data
+      );
 
-    console.log(req.data);
+      console.log(req.data);
 
-    setData(initialState);
+      setData(initialState);
 
-    history.back();
+      history.back();
+    }
   }
 
   return (
@@ -142,6 +164,12 @@ export default function CreateSurveyForm() {
         })}
       </div>
       <Button type="submit" text={"Entregar"} />
+
+      <Snackbar open={error.open} autoHideDuration={6000} onClose={closeError}>
+        <Alert onClose={closeError} severity="error">
+          {error.msg}
+        </Alert>
+      </Snackbar>
     </form>
   );
 }

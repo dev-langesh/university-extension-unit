@@ -75,10 +75,7 @@ export default function LoginForm() {
         msg: data.error,
       });
     } else {
-      window.localStorage.setItem("token", data.token);
-
-      if (data.userType !== "student") window.location.href = "/admin";
-      else window.location.href = "/user/dashboard";
+      router.push("/auth/verify-email");
     }
   };
 

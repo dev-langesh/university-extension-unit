@@ -69,7 +69,7 @@ export default function RegisterForm({ type }: { type: String }) {
       } else {
         setState(initialRegisterState);
 
-        router.push("/auth/verify-email");
+        router.push("/auth/login");
       }
     } catch (err) {
       if (err) {
