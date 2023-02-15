@@ -24,6 +24,7 @@ export default function AuthProvider({
       const whitelist = [
         "/",
         "/auth/verify-email",
+        "/auth/verify-code",
         "/auth/reset-password",
         "/auth/register",
       ];

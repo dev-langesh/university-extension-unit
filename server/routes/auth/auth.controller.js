@@ -32,6 +32,14 @@ async function register(req, res) {
       process.env.JWT_SECRET
     );
 
+    await User.findOneAndUpdate({ email: body.email }, { $set: { code } });
+
+    await sendMail({
+      to: body.email,
+      subject: "Restablecimiento de contraseña OTP",
+      text: `Su código de confirmación es ${code}`,
+    });
+
     return res.json({ message: "User registered", token });
   } catch (err) {
     if (err)
@@ -62,6 +70,16 @@ async function login(req, res) {
       { id: user._id, role: user.userType },
       process.env.JWT_SECRET
     );
+
+    const code = Math.floor(Math.random() * 10000);
+
+    await User.findOneAndUpdate({ email:body.email }, { $set: { code } });
+
+    await sendMail({
+      to: body.email,
+      subject: "Restablecimiento de contraseña OTP",
+      text: `Su código de confirmación es ${code}`,
+    });
 
     return res.json({
       message: "login success",

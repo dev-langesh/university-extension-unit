@@ -75,7 +75,9 @@ export default function LoginForm() {
         msg: data.error,
       });
     } else {
-      router.push("/auth/verify-email");
+      window.localStorage.setItem("email", state.email);
+
+      router.push("/auth/verify-code");
     }
   };
 
